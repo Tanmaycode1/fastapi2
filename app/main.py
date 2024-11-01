@@ -29,7 +29,7 @@ app.add_middleware(
 
 # Initialize OpenAI client
 try:
-    openai_client = OpenAIClient("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")
+    openai_client = OpenAIClient("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")
 except Exception as e:
     logger.error(f"Failed to initialize OpenAI client: {str(e)}")
     raise

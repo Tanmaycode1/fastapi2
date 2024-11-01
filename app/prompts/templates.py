@@ -188,56 +188,116 @@ Provide your output as a single minified JSON object without line breaks followi
 
 # Add this to your templates.py file
 
-policyMappingPrompt = '''Please analyze the provided medical policy document and generate a JSON output that captures the key policy components. Follow these steps:
+policyMappingPrompt = '''Please analyze the provided medical policy document and generate a comprehensive JSON output that combines both criteria-specific and broader policy information. Follow these steps:
 
-1. Document Analysis:
-- Extract the policy name and description
-- Identify any drug lists or medications mentioned
-- Extract all policy criteria including contraindications
-- Note any quantity level limits specified
+1. Core Policy Information:
+- Extract policy number and source information
+- Document complete drug identification
+- Capture detailed criteria with variables and logic
+- Include all numbered criteria and sub-criteria
 
-2. Criteria Organization:
-- Break down all criteria into clear, numbered items
-- Separate contraindications from other criteria
-- Identify any quantity or dosage limits
-- Ensure all sub-criteria are properly nested
+2. Extended Policy Components:
+- Document dosing and administration details
+- Include coverage and authorization requirements
+- Capture FDA approval information
+- Include clinical efficacy data
+- Document patient education requirements
 
 3. JSON Structure:
-The output must follow this exact structure:
 {
-  "description": "Overview of the policy and its purpose",
-  "application_drug_list": "List of all drugs/medications covered by the policy",
-  "policy_criteria": {
-    "criteria": [
-      {
-        "no": "number",
-        "crit": "criterion name/title",
-        "desc": "detailed description"
-      }
-    ],
-    "logic": "logical relationship between criteria"
+  "Overview": {
+    "Name": "generic (Brand®)",
+    "Description": "Complete description",
+    "MechanismOfAction": "Mode of action"
   },
-  "contraindications": "List of all contraindications",
-  "quantity_level_limit": "Any quantity or dosage limits specified"
+  "DosageAndAdministration": {
+    "[Indication]": {
+      "InitialDose": "Starting dose",
+      "MaintenanceDose": "Ongoing dosing"
+    }
+  },
+  "Coverage": {
+    "RequiredDocumentation": ["List of required documents"],
+    "PriorAuthorization": {
+      "InitialApproval": "Duration",
+      "Renewal": "Renewal criteria and duration"
+    }
+  },
+  "ClinicalEvidence": {
+    "FDAApproval": {
+      "Dates": {
+        "[Indication]": "Approval date"
+      }
+    },
+    "PivotalTrials": [
+      {
+        "TrialName": "Study identifier",
+        "Population": "Study population",
+        "Results": "Key outcomes"
+      }
+    ]
+  },
+  "Monitoring": {
+    "RequiredTests": ["Required monitoring tests"],
+    "Frequency": "Monitoring frequency",
+    "Parameters": ["Parameters to monitor"]
+  },
+  "Contraindications": [
+    "List of contraindications"
+  ],
+  "QuantityLimits": {
+    "InitialQuantity": "Initial supply limits",
+    "MaintenanceQuantity": "Ongoing supply limits"
+  },
+  "ProviderRequirements": {
+    "Specialty": "Required provider specialty",
+    "Documentation": ["Required documentation"]
+  },
+  "PatientEducation": {
+    "Instructions": "Usage instructions",
+    "Precautions": ["List of precautions"],
+    "SideEffects": ["Common side effects"]
+  },
+  "CriteriaAndLogic": {
+   "Source": "filename",
+   "Name": "policyname",
+   "case_scenario": "str",
+   "encoding_issues": "str",
+   "criteria": [
+{"no": "1", "var": "variable1", "crit": "str"},
+{"no": "1.1", "var": "variable2", "crit": "str"},
+{"no": "1.2", "var": "variable3", "crit": "str"},
+{"no": "1.3.1", "var": "variable4", "crit": "str"},
+{"no": "1.3.2", "var": "variable5", "crit": "str"},
+{"no": "2", "var": "variable6", "crit": "str"},
+{"no": "3", "var": "variable7", "crit": "str"}
+],
+"logic": "AND(variable1 := OR(variable2, variable3 := MIN2(variable4, variable5)), variable6, NOT(variable7))"
+}
 }
 
-4. Requirements:
-- The description should be clear and concise
-- Application drug list should include all mentioned medications
-- Each criterion should have a unique number
-- Contraindications should be listed separately
-- Quantity limits should be specific and measurable
-- The logic field should use AND, OR, NOT operators to show relationships
+4. Variable and Logic Requirements:
+- Maintain existing variable naming conventions
+- Use consistent logic operators (AND, OR, NOT)
+- Include all sub-criteria in logical relationships
+- Document any conditional logic
 
-5. Validation:
-- Ensure all required fields are populated
-- Verify that criteria numbers are sequential and logical
-- Confirm that all medications are correctly listed
-- Check that contraindications are properly separated
-- Verify quantity limits are clearly specified
+5. Validation Requirements:
+- Ensure all criteria numbers are sequential
+- Verify logical expressions are complete
+- Validate all variables are defined
+- Check cross-references between sections
+- Verify completeness of all required fields
 
-Focus only on content up to but not including any "Background" or similar sections.
-Return only the JSON object following the specified structure.'''
+6. Policy-Specific Guidelines:
+- Include step therapy requirements if applicable
+- Document any age or demographic restrictions
+- Note any diagnosis confirmation requirements
+- Include any required screening tests
+- Document any concurrent therapy restrictions
+- Note any quantity or duration limits
+
+Return the complete JSON object following this structure, ensuring all existing criteria and logic are preserved while adding comprehensive policy details. If necessary add more relevnt keys to the json to provide extra details'''
 
 recommendationAndMappingUser = '''#Task
 Evaluate the provided patient data against the policy criteria and make a coverage recommendation, as outlined in the updated system prompt. Focus specifically on the patient's current disease or condition stage and line of therapy being requested, and ensure that the decision rationale clearly explains how the patient's treatment history aligns with the policy criteria for the current request.

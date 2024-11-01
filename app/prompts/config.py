@@ -19,14 +19,27 @@ class PromptConfig:
 # Prompt configurations
 PROMPTS = {
     "policy_json_conversion": PromptConfig(
-        system_content=templates.encodingPrompt + "\n\n" + templates.policyMappingPrompt,
-        completion_markers=["JSON_COMPLETE", "CHUNK_END"],
-        chunking_strategy={
-            "max_criteria_per_chunk": 50,
-            "preserve_logic_boundaries": True,
-            "include_context": True
-        }
-    ),
+    system_content= templates.policyMappingPrompt,
+    completion_markers=["JSON_COMPLETE", "CHUNK_END"],
+    chunking_strategy={
+        "max_criteria_per_chunk": 100,
+        "preserve_logic_boundaries": True,
+        "include_context": True,
+        "section_markers": [
+            "PolicyInfo",
+            "DrugInformation",
+            "CriteriaAndLogic",
+            "DosageAndAdministration",
+            "Coverage",
+            "ClinicalEvidence",
+            "Monitoring",
+            "Contraindications",
+            "QuantityLimits",
+            "ProviderRequirements",
+            "PatientEducation"
+        ]
+    }
+),
     "encoding": PromptConfig(
         system_content=templates.encodingPrompt,
         completion_markers=["JSON_COMPLETE", "CHUNK_END"],
