@@ -1,31 +1,24 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from .api.routes import router
-from .core.config import get_settings
+from typing import List, Optional, Dict, Any
 import logging
-from time import time
-from typing import Callable, Dict
-import uvicorn
 import os
+import time
+import json
+from pydantic import BaseModel
+from typing import List, Optional, Dict, Any
+from .core.openai_client import OpenAIClient, OpenAIError
+from .prompts.config import get_prompt_config
+from .utils.json_handler import JSONHandler, JSONProcessingError
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# Setup logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-settings = get_settings()
 
-app = FastAPI(
-    title=settings.APP_NAME,
-    description="Medical Text to JSON Parser API",
-    version="1.0.0",
-    openapi_url=f"{settings.API_V1_STR}/openapi.json"
-)
+app = FastAPI()
 
-# CORS middleware
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -34,119 +27,273 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# Rate limiting middleware
-@app.middleware("http")
-async def rate_limit_middleware(request: Request, call_next: Callable):
-    start_time = time()
-
-    # Basic rate limiting
-    if hasattr(request.state, 'requests'):
-        request.state.requests += 1
-        if request.state.requests > settings.RATE_LIMIT_REQUESTS:
-            raise HTTPException(status_code=429, detail="Too many requests")
-    else:
-        request.state.requests = 1
-
-    response = await call_next(request)
-    process_time = time() - start_time
-    response.headers["X-Process-Time"] = str(process_time)
-
-    return response
+# Initialize OpenAI client
+try:
+    openai_client = OpenAIClient("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")
+except Exception as e:
+    logger.error(f"Failed to initialize OpenAI client: {str(e)}")
+    raise
 
 
-# Global error handler
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    logger.error(f"Global error handler caught: {str(exc)}")
-    return JSONResponse(
-        status_code=500,
-        content={
-            "detail": "Internal server error",
-            "type": str(type(exc).__name__)
+class RequestModel:
+    def __init__(self, body: Any, max_tokens: Optional[int] = 4000, temperature: Optional[float] = 0.7):
+        self.body = body
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+
+
+@app.post("/api/convert-policy-to-json")
+async def convert_policy_to_json(request: Dict[str, Any]):
+    """Convert policy text into structured JSON format."""
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("policy_json_conversion")
+        messages = [
+            {"role": "system", "content": config.system_content},
+            {"role": "user", "content": req.body}
+        ]
+
+        # Using your existing OpenAI client with chunking support
+        response = await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+
+        return response
+
+    except Exception as e:
+        logger.error(f"Error in convert_policy_to_json: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/generate-encoding")
+async def generate_encoding(request: Dict[str, Any]):
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("encoding")
+        messages = [
+            {"role": "system", "content": config.system_content},
+            {"role": "user", "content": req.body}
+        ]
+
+        return await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+    except Exception as e:
+        logger.error(f"Error in generate_encoding: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/generate-claim-review")
+async def generate_claim_review(request: Dict[str, Any]):
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("claim_review")
+        messages = [{"role": "system", "content": config.system_content}]
+
+        if isinstance(req.body, list):
+            for msg in req.body:
+                messages.append({"role": "user", "content": msg})
+        else:
+            messages.append({"role": "user", "content": req.body})
+
+        return await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+    except Exception as e:
+        logger.error(f"Error in generate_claim_review: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/generate-criteria-matching-report")
+async def generate_criteria_matching_report(request: Dict[str, Any]):
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("criteria_matching")
+        messages = [{"role": "system", "content": config.system_content}]
+
+        if isinstance(req.body, list):
+            for msg in req.body:
+                messages.append({"role": "user", "content": msg})
+        else:
+            messages.append({"role": "user", "content": req.body})
+
+        return await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+    except Exception as e:
+        logger.error(f"Error in generate_criteria_matching_report: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/generate-recommendation-and-mapping")
+async def generate_recommendation_and_mapping(request: Dict[str, Any]):
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("recommendation_mapping")
+
+        # Combine both prompts with the user's input
+        combined_content = f"{config.system_content}\n\n{req.body}"
+
+        messages = [
+            {"role": "system", "content": combined_content}
+        ]
+
+        return await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+    except Exception as e:
+        logger.error(f"Error in generate_recommendation_and_mapping: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/generate-alternative-care-pathway")
+async def generate_alternative_care_pathway(request: Dict[str, Any]):
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("alternative_care")
+        messages = [
+            {"role": "system", "content": config.system_content},
+            {"role": "user", "content": req.body}
+        ]
+
+        return await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+    except Exception as e:
+        logger.error(f"Error in generate_alternative_care_pathway: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/generate-policy-updates")
+async def generate_policy_updates(request: Dict[str, Any]):
+    try:
+        req = RequestModel(**request)
+        config = get_prompt_config("policy_updates")
+        messages = [
+            {"role": "system", "content": config.system_content},
+            {"role": "user", "content": req.body}
+        ]
+
+        return await openai_client.get_complete_response(
+            messages,
+            config,
+            req.max_tokens,
+            req.temperature
+        )
+    except Exception as e:
+        logger.error(f"Error in generate_policy_updates: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Session handling endpoints
+sessions = {}
+
+
+@app.post("/api/start-session")
+async def start_session(request: Dict[str, Any]):
+    try:
+        session_id = str(os.urandom(16).hex())
+        sessions[session_id] = {
+            "context": [
+                {
+                    "role": "system",
+                    "content": "You are an assistant specializing in prior authorization for basys.ai. "
+                               "Your responses should be based exclusively on the provided policy encoding and patient data."
+                }
+            ],
+            "last_access": time.time()
         }
-    )
+
+        if "body" in request:
+            sessions[session_id]["context"].append({
+                "role": "user",
+                "content": request["body"]
+            })
+
+        return {"session_id": session_id}
+    except Exception as e:
+        logger.error(f"Error in start_session: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-# Health check endpoint
-@app.get("/health", tags=["Health"])
-async def health_check() -> Dict[str, str]:
-    """
-    Check API health status and basic system information.
-    """
+@app.post("/api/send-message")
+async def send_message(request: Dict[str, Any]):
+    try:
+        if "session_id" not in request or "message" not in request:
+            raise HTTPException(status_code=400, detail="Missing session_id or message")
+
+        session_id = request["session_id"]
+        if session_id not in sessions:
+            raise HTTPException(status_code=404, detail="Session not found")
+
+        # Update session context with new message
+        sessions[session_id]["context"].append({
+            "role": "user",
+            "content": request["message"]
+        })
+
+        # Generate response
+        messages = sessions[session_id]["context"]
+        config = get_prompt_config("encoding")  # Using default config for sessions
+
+        response = await openai_client.get_complete_response(
+            messages,
+            config,
+            4000,  # Default max tokens
+            0.7  # Default temperature
+        )
+
+        response_content = response if isinstance(response, str) else json.dumps(response)
+
+        # Update session context with assistant's response
+        sessions[session_id]["context"].append({
+            "role": "assistant",
+            "content": response_content
+        })
+
+        sessions[session_id]["last_access"] = time.time()
+
+        return {"response": response_content}
+
+    except Exception as e:
+        logger.error(f"Error in send_message: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint."""
     return {
         "status": "healthy",
-        "api_version": "1.0.0",
-        "service": settings.APP_NAME,
-        "timestamp": str(time())
+        "openai_client": "initialized",
+        "sessions_active": len(sessions)
     }
 
 
-# Include API routes
-app.include_router(
-    router,
-    prefix=settings.API_V1_STR,
-    tags=["Medical Text Processing"]
-)
-
-
-# Startup event
+# Cleanup old sessions periodically
 @app.on_event("startup")
-async def startup_event():
-    logger.info(f"Starting {settings.APP_NAME}")
-    # Check for OpenAI API key
-    if not os.getenv("OPENAI_API_KEY"):
-        logger.warning("OPENAI_API_KEY not found in environment variables!")
-    logger.info("Server is ready to accept requests")
-
-
-# Shutdown event
 @app.on_event("shutdown")
-async def shutdown_event():
-    logger.info(f"Shutting down {settings.APP_NAME}")
+async def cleanup_sessions():
+    """Remove sessions that are older than 1 hour."""
+    current_time = time.time()
+    session_timeout = 3600  # 1 hour in seconds
 
-
-def start_server(host: str = "0.0.0.0",
-                 port: int = 8000,
-                 reload: bool = True,
-                 workers: int = 1,
-                 log_level: str = "info"):
-    """Start the FastAPI server with the specified configuration."""
-    try:
-        logger.info(f"Starting server on http://{host}:{port}")
-        uvicorn.run(
-            "app.main:app",
-            host=host,
-            port=port,
-            reload=reload,
-            workers=workers,
-            log_level=log_level
-        )
-    except Exception as e:
-        logger.error(f"Failed to start server: {str(e)}")
-        raise
-
-
-if __name__ == "__main__":
-    import argparse
-
-    # Command line arguments
-    parser = argparse.ArgumentParser(description='Run the Medical Text Processing API server')
-    parser.add_argument('--host', type=str, default="0.0.0.0", help='Host to bind the server to')
-    parser.add_argument('--port', type=int, default=8000, help='Port to bind the server to')
-    parser.add_argument('--reload', action='store_true', help='Enable auto-reload on code changes')
-    parser.add_argument('--workers', type=int, default=1, help='Number of worker processes')
-    parser.add_argument('--log-level', type=str, default="info",
-                        choices=['debug', 'info', 'warning', 'error', 'critical'],
-                        help='Logging level')
-
-    args = parser.parse_args()
-
-    # Start server with command line arguments
-    start_server(
-        host=args.host,
-        port=args.port,
-        reload=args.reload,
-        workers=args.workers,
-        log_level=args.log_level
-    )
+    for session_id in list(sessions.keys()):
+        if current_time - sessions[session_id]["last_access"] > session_timeout:
+            del sessions[session_id]
