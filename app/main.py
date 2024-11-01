@@ -11,6 +11,7 @@ from .core.openai_client import OpenAIClient, OpenAIError
 from .prompts.config import get_prompt_config
 from .utils.json_handler import JSONHandler, JSONProcessingError
 
+
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -29,7 +30,8 @@ app.add_middleware(
 
 # Initialize OpenAI client
 try:
-    openai_client = OpenAIClient("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")
+    load_dotenv()
+    openai_client = OpenAIClient("os.getenv('OPENAI_API_KEY')")
 except Exception as e:
     logger.error(f"Failed to initialize OpenAI client: {str(e)}")
     raise
