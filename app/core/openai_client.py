@@ -107,7 +107,7 @@ class OpenAIClient:
         """Make a request to OpenAI API with error handling."""
         try:
             return await self.async_client.chat.completions.create(
-                model="gpt-4",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=max_tokens,
                 temperature=temperature

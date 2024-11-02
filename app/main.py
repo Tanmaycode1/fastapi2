@@ -20,6 +20,7 @@ import pypdf
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 from .utils.json_handler import JSONHandler, JSONProcessingError
+from dotenv import load_dotenv
 
 
 # Setup logging
