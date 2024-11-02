@@ -10,6 +10,16 @@ from typing import List, Optional, Dict, Any
 from .core.openai_client import OpenAIClient, OpenAIError
 from .prompts.config import get_prompt_config
 from .utils.json_handler import JSONHandler, JSONProcessingError
+from fastapi import File, UploadFile, BackgroundTasks
+from typing import Dict, Optional
+from datetime import datetime
+import tempfile
+import os
+import uuid
+import pypdf
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
+from .utils.json_handler import JSONHandler, JSONProcessingError
 
 
 # Setup logging
@@ -42,6 +52,204 @@ class RequestModel:
         self.body = body
         self.max_tokens = max_tokens
         self.temperature = temperature
+
+pdf_tasks: Dict[str, Dict] = {}
+executor = ThreadPoolExecutor(max_workers=3)
+json_handler = JSONHandler()
+
+class PDFProcessingRequest:
+    def __init__(self, 
+                 prompt_type: str = "policy_json_conversion",
+                 priority: Optional[int] = 3,
+                 max_tokens: Optional[int] = 4000,
+                 temperature: Optional[float] = 0.7):
+        self.prompt_type = prompt_type
+        self.priority = priority
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+
+async def process_pdf_content(
+    content: bytes,
+    task_id: str,
+    prompt_type: str,
+    max_tokens: Optional[int] = None,
+    temperature: Optional[float] = None
+):
+    """Process PDF content asynchronously with JSON handling"""
+    try:
+        # Create temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+            tmp_file.write(content)
+            tmp_path = tmp_file.name
+
+        def extract_text_from_pdf(file_path: str) -> str:
+            with open(file_path, 'rb') as file:
+                pdf_reader = pypdf.PdfReader(file)
+                text = ''
+                for page in pdf_reader.pages:
+                    text += page.extract_text() + '\n'
+                return text
+
+        # Process PDF in thread pool
+        loop = asyncio.get_event_loop()
+        text_content = await loop.run_in_executor(
+            executor, 
+            extract_text_from_pdf,
+            tmp_path
+        )
+
+        # Get prompt config
+        config = get_prompt_config(prompt_type)
+        
+        # Prepare messages for OpenAI
+        messages = [
+            {"role": "system", "content": config.system_content},
+            {"role": "user", "content": text_content}
+        ]
+
+        # Process with OpenAI using chunks
+        chunks = []
+        partial_content = ""
+        retry_count = 0
+
+        while True:
+            try:
+                # Prepare messages with continuation context
+                current_messages = messages.copy()
+                if partial_content:
+                    current_messages.append({
+                        "role": "user",
+                        "content": f"Continue from: {partial_content}"
+                    })
+
+                # Make API request
+                response = await openai_client.get_complete_response(
+                    messages=current_messages,
+                    config=config,
+                    max_tokens=max_tokens,
+                    temperature=temperature
+                )
+
+                # Process chunk using json handler
+                chunk = await json_handler.process_chunk(response)
+                if chunk:
+                    chunks.append(chunk)
+
+                # Check if response is complete
+                if any(marker in str(response) for marker in config.completion_markers):
+                    break
+
+                # Get continuation point using chunk handler
+                completed, partial_content = json_handler.find_continuation_point(str(response))
+                if not partial_content:
+                    break
+
+                if len(chunks) >= 5:  # Maximum chunks limit
+                    logger.warning("Maximum chunk limit reached")
+                    break
+
+            except JSONProcessingError as e:
+                logger.warning(f"JSON processing error: {str(e)}")
+                retry_count += 1
+                if retry_count >= 3:  # Maximum retries
+                    if chunks:
+                        final_result = await json_handler.merge_chunks(chunks)
+                        pdf_tasks[task_id].update({
+                            'status': 'completed',
+                            'result': final_result,
+                            'completion_time': datetime.utcnow().isoformat()
+                        })
+                    else:
+                        pdf_tasks[task_id].update({
+                            'status': 'failed',
+                            'error': f"Failed to process JSON after {retry_count} retries"
+                        })
+                    return
+                await asyncio.sleep(2 ** (retry_count - 1))
+                continue
+
+        # Merge chunks and update task status
+        try:
+            final_result = await json_handler.merge_chunks(chunks)
+            pdf_tasks[task_id].update({
+                'status': 'completed',
+                'result': final_result,
+                'completion_time': datetime.utcnow().isoformat()
+            })
+        except JSONProcessingError as e:
+            if chunks:
+                pdf_tasks[task_id].update({
+                    'status': 'completed',
+                    'result': chunks[-1],
+                    'completion_time': datetime.utcnow().isoformat()
+                })
+            else:
+                pdf_tasks[task_id].update({
+                    'status': 'failed',
+                    'error': f"Failed to merge JSON chunks: {str(e)}"
+                })
+
+        # Cleanup temporary file
+        os.unlink(tmp_path)
+
+    except Exception as e:
+        logger.error(f"Error processing PDF {task_id}: {str(e)}")
+        pdf_tasks[task_id].update({
+            'status': 'failed',
+            'error': str(e)
+        })
+
+@app.post("/api/process-pdf")
+async def process_pdf(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    prompt_type: str = "policy_json_conversion",
+    priority: Optional[int] = 3,
+    max_tokens: Optional[int] = 4000,
+    temperature: Optional[float] = 0.7
+):
+    """Process PDF file and return task ID"""
+    if not file.filename.endswith('.pdf'):
+        raise HTTPException(status_code=400, detail="File must be a PDF")
+
+    try:
+        task_id = str(uuid.uuid4())
+        content = await file.read()
+        
+        pdf_tasks[task_id] = {
+            'status': 'processing',
+            'filename': file.filename,
+            'prompt_type': prompt_type,
+            'submission_time': datetime.utcnow().isoformat(),
+            'priority': priority
+        }
+
+        background_tasks.add_task(
+            process_pdf_content,
+            content,
+            task_id,
+            prompt_type,
+            max_tokens,
+            temperature
+        )
+
+        return {
+            'task_id': task_id,
+            'status': 'processing',
+            'message': 'PDF processing started'
+        }
+
+    except Exception as e:
+        logger.error(f"Error initiating PDF processing: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/pdf-status/{task_id}")
+async def get_pdf_status(task_id: str):
+    """Get PDF processing task status"""
+    if task_id not in pdf_tasks:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    return pdf_tasks[task_id]
 
 
 @app.post("/api/convert-policy-to-json")
@@ -284,18 +492,26 @@ async def health_check():
     return {
         "status": "healthy",
         "openai_client": "initialized",
-        "sessions_active": len(sessions)
+        "sessions_active": len(sessions),
+        "pdf_tasks": {
+            "active": len(pdf_tasks),
+            "completed": len([t for t in pdf_tasks.values() if t['status'] == 'completed']),
+            "failed": len([t for t in pdf_tasks.values() if t['status'] == 'failed'])
+        }
     }
 
-
-# Cleanup old sessions periodically
-@app.on_event("startup")
+# Add cleanup handler
 @app.on_event("shutdown")
-async def cleanup_sessions():
-    """Remove sessions that are older than 1 hour."""
-    current_time = time.time()
-    session_timeout = 3600  # 1 hour in seconds
-
-    for session_id in list(sessions.keys()):
-        if current_time - sessions[session_id]["last_access"] > session_timeout:
-            del sessions[session_id]
+async def cleanup_pdf_tasks():
+    """Cleanup PDF tasks and executor"""
+    current_time = datetime.utcnow()
+    for task_id in list(pdf_tasks.keys()):
+        task = pdf_tasks[task_id]
+        if task['status'] in ['completed', 'failed']:
+            completion_time = datetime.fromisoformat(
+                task.get('completion_time', current_time.isoformat())
+            )
+            if (current_time - completion_time).total_seconds() > 3600:
+                del pdf_tasks[task_id]
+    
+    executor.shutdown(wait=True)
