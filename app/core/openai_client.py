@@ -14,12 +14,20 @@ class OpenAIError(Exception):
 
 
 class OpenAIClient:
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, model: str = "gpt-4o"):
+        """
+        Initialize OpenAI client with both sync and async clients.
+        
+        Args:
+            api_key (str): OpenAI API key
+            model (str): Model to use (default: "gpt-4")
+        """
         self.client = OpenAI(api_key=api_key)
         self.async_client = AsyncOpenAI(api_key=api_key)
         self.json_handler = JSONHandler()
         self.max_chunks = 5
         self.max_retries = 3
+        self.model = model
 
     async def get_complete_response(
             self,
@@ -28,7 +36,18 @@ class OpenAIClient:
             max_tokens: Optional[int] = None,
             temperature: Optional[float] = None
     ) -> Dict[str, Any]:
-        """Get complete response with chunking support."""
+        """
+        Get complete response with chunking support.
+        
+        Args:
+            messages: List of message dictionaries
+            config: Prompt configuration
+            max_tokens: Maximum tokens for response
+            temperature: Temperature for response generation
+        
+        Returns:
+            Dict containing merged response
+        """
         chunks = []
         partial_content = ""
         retry_count = 0
@@ -42,7 +61,7 @@ class OpenAIClient:
                 current_messages = messages.copy()
                 if partial_content:
                     current_messages.append({
-                        "role": "user",
+                        "role": "assistant",  # Changed from "user" to "assistant" for continuation
                         "content": f"Continue from: {partial_content}"
                     })
 
@@ -67,7 +86,7 @@ class OpenAIClient:
 
                     # Get continuation point using chunk handler
                     completed, partial_content = self.json_handler.find_continuation_point(content)
-                    if not partial_content:
+                    if completed or not partial_content:
                         break
 
                     if len(chunks) >= self.max_chunks:
@@ -81,7 +100,7 @@ class OpenAIClient:
                         if chunks:
                             return await self.json_handler.merge_chunks(chunks)
                         return {"content": content}
-                    await asyncio.sleep(2 ** (retry_count - 1))
+                    await asyncio.sleep(2 ** retry_count)  # Exponential backoff
                     continue
 
             except Exception as e:
@@ -92,7 +111,8 @@ class OpenAIClient:
 
         try:
             # Merge chunks using json handler
-            return await self.json_handler.merge_chunks(chunks)
+            merged_response = await self.json_handler.merge_chunks(chunks)
+            return merged_response
         except JSONProcessingError as e:
             if chunks:
                 return chunks[-1]
@@ -104,10 +124,23 @@ class OpenAIClient:
             max_tokens: int,
             temperature: float
     ):
-        """Make a request to OpenAI API with error handling."""
+        """
+        Make a request to OpenAI API with error handling.
+        
+        Args:
+            messages: List of message dictionaries
+            max_tokens: Maximum tokens for response
+            temperature: Temperature for response generation
+        
+        Returns:
+            OpenAI API response
+            
+        Raises:
+            OpenAIError: If API request fails
+        """
         try:
             return await self.async_client.chat.completions.create(
-                model="gpt-4o",
+                model=self.model,  # Use instance model instead of hardcoded value
                 messages=messages,
                 max_tokens=max_tokens,
                 temperature=temperature

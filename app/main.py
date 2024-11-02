@@ -17,6 +17,7 @@ import tempfile
 import os
 import uuid
 import pypdf
+from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 from .utils.json_handler import JSONHandler, JSONProcessingError
@@ -41,7 +42,7 @@ app.add_middleware(
 
 # Initialize OpenAI client
 try:
-    load_dotenv()
+    load_dotenv() 
     openai_client = OpenAIClient("os.getenv('OPENAI_API_KEY')")
 except Exception as e:
     logger.error(f"Failed to initialize OpenAI client: {str(e)}")
@@ -76,7 +77,7 @@ async def process_pdf_content(
     max_tokens: Optional[int] = None,
     temperature: Optional[float] = None
 ):
-    """Process PDF content asynchronously with JSON handling"""
+    """Process PDF content asynchronously and extract text from all pages"""
     try:
         # Create temporary file
         with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
@@ -84,12 +85,30 @@ async def process_pdf_content(
             tmp_path = tmp_file.name
 
         def extract_text_from_pdf(file_path: str) -> str:
-            with open(file_path, 'rb') as file:
-                pdf_reader = pypdf.PdfReader(file)
-                text = ''
-                for page in pdf_reader.pages:
-                    text += page.extract_text() + '\n'
-                return text
+            try:
+                with open(file_path, 'rb') as file:
+                    pdf_reader = pypdf.PdfReader(file)
+                    total_pages = len(pdf_reader.pages)
+                    text = f"Total Pages: {total_pages}\n\n"
+                    
+                    # Extract text from each page with proper error handling
+                    for page_num in range(total_pages):
+                        try:
+                            page = pdf_reader.pages[page_num]
+                            text += f"\n{'='*50}\nPage {page_num + 1} of {total_pages}\n{'='*50}\n\n"
+                            page_text = page.extract_text()
+                            if page_text.strip():  # Check if page has content
+                                text += page_text + '\n'
+                            else:
+                                text += "[Empty Page]\n"
+                        except Exception as e:
+                            logger.error(f"Error extracting text from page {page_num + 1}: {str(e)}")
+                            text += f"[Error extracting page {page_num + 1}: {str(e)}]\n"
+                    
+                    return text
+            except Exception as e:
+                logger.error(f"Error reading PDF file: {str(e)}")
+                raise Exception(f"Failed to read PDF file: {str(e)}")
 
         # Process PDF in thread pool
         loop = asyncio.get_event_loop()
@@ -99,96 +118,15 @@ async def process_pdf_content(
             tmp_path
         )
 
-        # Get prompt config
-        config = get_prompt_config(prompt_type)
-        
-        # Prepare messages for OpenAI
-        messages = [
-            {"role": "system", "content": config.system_content},
-            {"role": "user", "content": text_content}
-        ]
+        # Update task status with the extracted text
+        pdf_tasks[task_id].update({
+            'status': 'completed',
+            'result': text_content,
+            'completion_time': datetime.utcnow().isoformat()
+        })
 
-        # Process with OpenAI using chunks
-        chunks = []
-        partial_content = ""
-        retry_count = 0
-
-        while True:
-            try:
-                # Prepare messages with continuation context
-                current_messages = messages.copy()
-                if partial_content:
-                    current_messages.append({
-                        "role": "user",
-                        "content": f"Continue from: {partial_content}"
-                    })
-
-                # Make API request
-                response = await openai_client.get_complete_response(
-                    messages=current_messages,
-                    config=config,
-                    max_tokens=max_tokens,
-                    temperature=temperature
-                )
-
-                # Process chunk using json handler
-                chunk = await json_handler.process_chunk(response)
-                if chunk:
-                    chunks.append(chunk)
-
-                # Check if response is complete
-                if any(marker in str(response) for marker in config.completion_markers):
-                    break
-
-                # Get continuation point using chunk handler
-                completed, partial_content = json_handler.find_continuation_point(str(response))
-                if not partial_content:
-                    break
-
-                if len(chunks) >= 5:  # Maximum chunks limit
-                    logger.warning("Maximum chunk limit reached")
-                    break
-
-            except JSONProcessingError as e:
-                logger.warning(f"JSON processing error: {str(e)}")
-                retry_count += 1
-                if retry_count >= 3:  # Maximum retries
-                    if chunks:
-                        final_result = await json_handler.merge_chunks(chunks)
-                        pdf_tasks[task_id].update({
-                            'status': 'completed',
-                            'result': final_result,
-                            'completion_time': datetime.utcnow().isoformat()
-                        })
-                    else:
-                        pdf_tasks[task_id].update({
-                            'status': 'failed',
-                            'error': f"Failed to process JSON after {retry_count} retries"
-                        })
-                    return
-                await asyncio.sleep(2 ** (retry_count - 1))
-                continue
-
-        # Merge chunks and update task status
-        try:
-            final_result = await json_handler.merge_chunks(chunks)
-            pdf_tasks[task_id].update({
-                'status': 'completed',
-                'result': final_result,
-                'completion_time': datetime.utcnow().isoformat()
-            })
-        except JSONProcessingError as e:
-            if chunks:
-                pdf_tasks[task_id].update({
-                    'status': 'completed',
-                    'result': chunks[-1],
-                    'completion_time': datetime.utcnow().isoformat()
-                })
-            else:
-                pdf_tasks[task_id].update({
-                    'status': 'failed',
-                    'error': f"Failed to merge JSON chunks: {str(e)}"
-                })
+        # Log success with page count
+        logger.info(f"Successfully processed PDF {task_id} - extracted text from all pages")
 
         # Cleanup temporary file
         os.unlink(tmp_path)
@@ -199,6 +137,33 @@ async def process_pdf_content(
             'status': 'failed',
             'error': str(e)
         })
+
+# Update the response model for PDF status endpoint
+@app.get("/api/pdf-status/{task_id}")
+async def get_pdf_status(task_id: str):
+    """Get PDF processing task status"""
+    if task_id not in pdf_tasks:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    task = pdf_tasks[task_id]
+    if task['status'] == 'completed':
+        return {
+            'status': 'completed',
+            'text_content': task['result'],
+            'filename': task.get('filename'),
+            'completion_time': task.get('completion_time')
+        }
+    elif task['status'] == 'failed':
+        return {
+            'status': 'failed',
+            'error': task.get('error'),
+            'filename': task.get('filename')
+        }
+    else:
+        return {
+            'status': 'processing',
+            'filename': task.get('filename')
+        }
 
 @app.post("/api/process-pdf")
 async def process_pdf(
