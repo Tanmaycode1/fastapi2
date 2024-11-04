@@ -5,11 +5,13 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any, Tuple
 import logging
 import os
+from .prompts.config import get_prompt_config
 import time
 import json
 import tempfile
 import uuid
 from datetime import datetime, timedelta
+from .core.openai_client import OpenAIClient
 import asyncio
 import cv2
 import numpy as np
@@ -29,6 +31,13 @@ logger = logging.getLogger(__name__)
 # Initialize FastAPI app
 app = FastAPI()
 
+class RequestModel:
+    def __init__(self, body: Any, max_tokens: Optional[int] = 4000, temperature: Optional[float] = 0.7):
+        self.body = body
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -37,7 +46,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+try:
+    openai_client = OpenAIClient("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")
+except Exception as e:
+    logger.error(f"Failed to initialize OpenAI client: {str(e)}")
+    raise
 # Configuration
 TEMP_DIR = "/tmp/pdf_processing"
 DPI = 400  # Higher DPI for better quality
@@ -620,30 +633,6 @@ async def shutdown_event():
     except Exception as e:
         logger.error(f"Error during shutdown: {str(e)}")
 
-@app.post("/api/convert-policy-to-json")
-async def convert_policy_to_json(request: Dict[str, Any]):
-    """Convert policy text into structured JSON format."""
-    try:
-        req = RequestModel(**request)
-        config = get_prompt_config("policy_json_conversion")
-        messages = [
-            {"role": "system", "content": config.system_content},
-            {"role": "user", "content": req.body}
-        ]
-
-        # Using your existing OpenAI client with chunking support
-        response = await openai_client.get_complete_response(
-            messages,
-            config,
-            req.max_tokens,
-            req.temperature
-        )
-
-        return response
-
-    except Exception as e:
-        logger.error(f"Error in convert_policy_to_json: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/generate-encoding")
 async def generate_encoding(request: Dict[str, Any]):
@@ -666,118 +655,8 @@ async def generate_encoding(request: Dict[str, Any]):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/api/generate-claim-review")
-async def generate_claim_review(request: Dict[str, Any]):
-    try:
-        req = RequestModel(**request)
-        config = get_prompt_config("claim_review")
-        messages = [{"role": "system", "content": config.system_content}]
-
-        if isinstance(req.body, list):
-            for msg in req.body:
-                messages.append({"role": "user", "content": msg})
-        else:
-            messages.append({"role": "user", "content": req.body})
-
-        return await openai_client.get_complete_response(
-            messages,
-            config,
-            req.max_tokens,
-            req.temperature
-        )
-    except Exception as e:
-        logger.error(f"Error in generate_claim_review: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/api/generate-criteria-matching-report")
-async def generate_criteria_matching_report(request: Dict[str, Any]):
-    try:
-        req = RequestModel(**request)
-        config = get_prompt_config("criteria_matching")
-        messages = [{"role": "system", "content": config.system_content}]
-
-        if isinstance(req.body, list):
-            for msg in req.body:
-                messages.append({"role": "user", "content": msg})
-        else:
-            messages.append({"role": "user", "content": req.body})
-
-        return await openai_client.get_complete_response(
-            messages,
-            config,
-            req.max_tokens,
-            req.temperature
-        )
-    except Exception as e:
-        logger.error(f"Error in generate_criteria_matching_report: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/api/generate-recommendation-and-mapping")
-async def generate_recommendation_and_mapping(request: Dict[str, Any]):
-    try:
-        req = RequestModel(**request)
-        config = get_prompt_config("recommendation_mapping")
-
-        # Combine both prompts with the user's input
-        combined_content = f"{config.system_content}\n\n{req.body}"
-
-        messages = [
-            {"role": "system", "content": combined_content}
-        ]
-
-        return await openai_client.get_complete_response(
-            messages,
-            config,
-            req.max_tokens,
-            req.temperature
-        )
-    except Exception as e:
-        logger.error(f"Error in generate_recommendation_and_mapping: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/api/generate-alternative-care-pathway")
-async def generate_alternative_care_pathway(request: Dict[str, Any]):
-    try:
-        req = RequestModel(**request)
-        config = get_prompt_config("alternative_care")
-        messages = [
-            {"role": "system", "content": config.system_content},
-            {"role": "user", "content": req.body}
-        ]
-
-        return await openai_client.get_complete_response(
-            messages,
-            config,
-            req.max_tokens,
-            req.temperature
-        )
-    except Exception as e:
-        logger.error(f"Error in generate_alternative_care_pathway: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/api/generate-policy-updates")
-async def generate_policy_updates(request: Dict[str, Any]):
-    try:
-        req = RequestModel(**request)
-        config = get_prompt_config("policy_updates")
-        messages = [
-            {"role": "system", "content": config.system_content},
-            {"role": "user", "content": req.body}
-        ]
-
-        return await openai_client.get_complete_response(
-            messages,
-            config,
-            req.max_tokens,
-            req.temperature
-        )
-    except Exception as e:
-        logger.error(f"Error in generate_policy_updates: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Session handling endpoints

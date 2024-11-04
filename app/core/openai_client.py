@@ -25,7 +25,7 @@ class OpenAIClient:
         self.client = OpenAI(api_key=api_key)
         self.async_client = AsyncOpenAI(api_key=api_key)
         self.json_handler = JSONHandler()
-        self.max_chunks = 5
+        self.max_chunks = 10
         self.max_retries = 3
         self.model = model
 
