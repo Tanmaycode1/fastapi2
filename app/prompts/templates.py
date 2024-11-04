@@ -1,80 +1,143 @@
 encodingPrompt = '''Please analyze the provided medical guideline document and generate a JSON output that captures the criteria and their logical relationships. Follow these steps:
-Document Preparation:
-Consider the entire document content unless explicitly instructed to omit specific sections.
-Identify all distinct sections in the document based on headings, subheadings, or other formatting cues.
-Pay special attention to any sections labeled "Exclusion Criteria", "Exclusions", "Absolute Contraindications", or similar, and ensure they are accurately represented in the output, make sure to include them correctly in the output and in the "logic", i.e. identify if they apply to the entire policy or any subsection and use NOT operators where applicable.
-Ensure that all relevant information from each section is captured in the JSON object.
-Review the content from the beginning up to but not including the "BACKGROUND" section; discard the "BACKGROUND" section and anything thereafter.
-Identify any introductory or contextual statements that provide essential information about the criteria or their relationships. Include these statements in the JSON output and ensure they are reflected in the "logic" field.
-Criteria Identification:
-Identify each criterion and bullet point item listed in the document.
-Break down the criteria into subcriteria based on the document's structure, such as bullet points, numbered lists, or separate paragraphs.
-Extract the exact text for each criterion and subcriterion from the source document without any modifications, summarizations, or omissions. Make all exclusion criteria, inclusion criteria, or contraindications are included here.
-Assign a unique numbering to each criterion and subcriterion. If available in the source document, follow the existing numbering; if not available, assign new numbering using a hierarchical system (e.g., 1, 1.1, 1.2, 2, 2.1, 2.2).
-Variable Creation:
-    For each criterion and subcriterion, create a short "variable" that summarizes it in a maximum of 3 words.
-If a criterion contains new line characters ('
-'), treat each line as a separate subcriterion and assign it a unique variable and number.
-Logical Relationship Detection:
-Pay close attention to words or phrases that indicate the logical relationships between criteria, such as "ALL," "AND," "ANY," "AS WELL AS," "AT LEAST TWO," "EXCLUDING," "IF," "MUST," "NOT," "ONLY," "OR," "REQUIRES," "SUCH AS," and "WHEN."
-Use the following guidelines to detect the logic structure of the document:
-New criteria are denoted by list elements, bullets, or line breaks in the source document.
-Pay close attention to indentation to detect groupings and nested logic.
-Represent the logical relationships accurately in the "logic" field using the appropriate logical operators and the ":=" notation for definitions:
-"ALL of the following criteria are met" should be represented as "AND(variable, variable, ...)"
-"ANY of the following criteria are met" should be represented as "OR(variable, variable, ...)"
-"AT LEAST TWO of the following criteria are met" should be represented as "MIN2(variable, variable, ...)"
-"EXCLUDING" should be represented as "NOT(variable)"
-If a criterion is defined by subcriteria, use ":=" to represent the definition, e.g., "criterion := OR(subcriterion1, subcriterion2)"
-If the logical relationships are not explicitly stated in the document or are ambiguous, use your best judgment based on the context to determine the appropriate logical representation.
-Ensure that all variables listed under "criteria", including subcriteria variables as well es any exclusion criteria, are properly represented in the "logic" field using the appropriate logical operators (AND, OR, NOT, MIN2/3/4, :=).
-Ensure the output has the following tree structure:
-  - Root node is `AND`.
-  - One child node is `OR`.
-  - One child node is `NOT`.
-  - Place all relevant criteria under the appropriate branches.
-  - there should not be any `criteria under root node`. `only` `two` things `OR` and `NOT` .Under both of them , develop the mapping.
-For example, if a criterion has subcriteria, the "logic" field should represent their relationship, such as: "AND(variable1, OR(subvar1, subvar2, subvar3), variable2)"
-JSON Output Generation:
-Create a JSON format using the provided template to display the criteria and their logical relationships.
-Ensure that each criterion and subcriterion is represented as a separate entry in the "criteria" array of the JSON output.
-If a criterion contains new line characters ('
-'), split it into separate subcriteria entries in the "criteria" array, assigning each subcriterion a unique number (e.g., 1.4.1, 1.4.2) and variable.
-Include a separate field called "logic" that represents the logical relationships between all variables, including subcriteria variables, using AND, OR, NOT, MIN2/3/4, and ":=" operators and parentheses, as shown in the JSON example.
-Ensure that all variables under "criteria" are included in "logic" and vice-versa.
-After encoding, count the number of "variable" fields under "criteria" and make sure it matches the number of variables included in "logic."
-Review and Correction:
-Carefully review the generated JSON against the original document to ensure all essential information, including introductory or contextual statements and logical relationships, have been accurately captured.
-After encoding the JSON output, carefully review the "logic" field to ensure that it accurately captures the logical relationships between all criteria and subcriteria variables. If any variables are missing or the logic does not accurately represent the relationships described in the document, make the necessary corrections to the "logic" field.
-As a final check, mentally walk through the "logic" field to ensure that it accurately represents the criteria and their relationships as described in the source document.
-If necessary, make corrections to the JSON output to faithfully represent the information and relationships described in the document.
-If there are any inconsistencies, errors, or ambiguities in the source document that affect the encoding process, note them in the "encoding_issues" field of the JSON output. Leave "case_scenario" empty.
-NB: 
-    - You should never put Variable1, Variable2,.. in logic
-    - You should never put criteria under root node. Only `OR` and `NOT` should be under
-    - All the inclusion criteria should be under OR and all the exclusion criteria should be under `NOT`
-    - Don't forget any criteria and it's sub criteria
-    - Count the number of criteria and sub-criteria to ensure none of them are missed while generating the output
-    - if the policy data is too large to return in one document skip few parts that seems to be not relevant. Make sure you return a proper response every time in message itself.
 
-    Return only the JSON formatted as a code block.
+1. Document Preparation:
+   - Consider the entire document content unless explicitly instructed to omit specific sections
+   - Identify all distinct sections based on headings, subheadings, or formatting cues
+   - Pay special attention to sections labeled "Exclusion Criteria", "Exclusions", "Absolute Contraindications"
+   - Review content up to but not including "BACKGROUND" section; discard "BACKGROUND" and anything after
+   - Identify introductory or contextual statements providing essential information
+
+2. Criteria Identification:
+   - Break down document into criteria and subcriteria based on structure
+   - Extract exact text without modifications or omissions
+   - Assign unique hierarchical numbering (e.g., 1, 1.1, 1.2, 2, 2.1)
+   - Include all inclusion criteria, exclusion criteria, and contraindications
+   - Preserve document structure and relationships
+
+3. Variable Creation:
+   - Create short variables (max 3 words) for each criterion/subcriterion
+   - Treat each new line character as separate subcriterion
+   - Assign unique variables to each component
+   - Keep variables descriptive and consistent
+
+4. Logical Relationship Detection and Tree Structure:
+
+   A. Mandatory Tree Structure:
+   ```
+   AND (root)
+   ├── OR (all inclusion criteria)
+   │   ├── Simple criteria
+   │   └── Complex criteria with subcriteria
+   │       └── Nested logic (using :=, MIN2, etc.)
+   └── NOT (all exclusion criteria)
+       ├── Simple exclusions
+       └── Complex exclusions with subcriteria
+           └── Nested logic (using :=, MIN2, etc.)
+   ```
+
+   B. Logical Operator Rules:
+   - AND: All conditions must be met
+   - OR: Any conditions can be met
+   - NOT: Conditions must not be present
+   - MIN2/MIN3/MIN4: At least 2/3/4 conditions must be met
+   - := Defines complex criteria with subcriteria
+
+   C. Structure Rules:
+   - Root must be AND operator
+   - Second level must have exactly two children: OR and NOT
+   - OR branch contains all inclusion criteria
+   - NOT branch contains all exclusion criteria
+   - No variables directly under root AND
+   - Each variable appears exactly once
+   - Proper nesting with matching parentheses
+   - Use := for all complex criteria definitions
+
+   D. Example Structure:
+   ```
+   AND(
+     OR(
+       simple_criterion1,
+       complex_criterion := AND(subcriterion1, subcriterion2),
+       alternative_criterion := MIN2(option1, option2, option3)
+     ),
+     NOT(
+       exclusion1,
+       complex_exclusion := OR(excl_sub1, excl_sub2)
+     )
+   )
+   ```
+
+5. Logic Pattern Detection:
+   - Watch for key phrases: "ALL," "AND," "ANY," "AS WELL AS," "AT LEAST TWO"
+   - Note structural indicators: bullets, indentation, line breaks
+   - Identify relationships between criteria and subcriteria
+   - Pay attention to exclusionary language
+
+6. JSON Output Generation:
+   - Follow provided template structure
+   - Include all criteria in criteria array
+   - Split criteria with newlines into separate entries
+   - Create comprehensive logic field
+   - Ensure all variables appear in both criteria and logic sections
+
+7. Validation Steps:
+   a. Verify root node is AND with exactly two children
+   b. Confirm all inclusion criteria under OR branch
+   c. Confirm all exclusion criteria under NOT branch
+   d. Check each variable appears in logic
+   e. Verify proper nesting and parentheses
+   f. Validate := operator usage
+   g. Check MIN2/3/4 operator usage
+   h. Count variables in criteria matches logic
+   i. No orphaned variables or operators
+
+8. Review and Correction:
+   - Compare output to source document
+   - Verify all relationships captured
+   - Check for missing criteria
+   - Note any issues in encoding_issues field
+   - Ensure logical consistency
+
+Important Notes:
+- Never use Variable1, Variable2 placeholder names
+- Never put criteria directly under root node
+- All inclusion criteria go under OR
+- All exclusion criteria go under NOT
+- Include all criteria and subcriteria
+- Skip non-relevant parts if document is too large
+- Return JSON in code block format
+
 JSON Template:
+```json
 {
-"Source": "filename",
-"Name": "policyname",
-"case_scenario": "str",
-"encoding_issues": "str",
-"criteria": [
-{"no": "1", "var": "variable1", "crit": "str"},
-{"no": "1.1", "var": "variable2", "crit": "str"},
-{"no": "1.2", "var": "variable3", "crit": "str"},
-{"no": "1.3.1", "var": "variable4", "crit": "str"},
-{"no": "1.3.2", "var": "variable5", "crit": "str"},
-{"no": "2", "var": "variable6", "crit": "str"},
-{"no": "3", "var": "variable7", "crit": "str"}
-],
-"logic": "AND(variable1 := OR(variable2, variable3 := MIN2(variable4, variable5)), variable6, NOT(variable7))"
-}'''
+  "Source": "filename",
+  "Name": "policyname",
+  "case_scenario": "str",
+  "encoding_issues": "str",
+  "criteria": [
+    {"no": "1", "var": "specific_variable1", "crit": "exact criterion text"},
+    {"no": "1.1", "var": "specific_variable2", "crit": "exact criterion text"},
+    {"no": "1.2", "var": "specific_variable3", "crit": "exact criterion text"},
+    {"no": "1.3.1", "var": "specific_variable4", "crit": "exact criterion text"},
+    {"no": "1.3.2", "var": "specific_variable5", "crit": "exact criterion text"}
+  ],
+  "logic": "AND(
+    OR(
+      specific_variable1,
+      specific_variable2 := AND(specific_variable3, specific_variable4)
+    ),
+    NOT(
+      specific_variable5
+    )
+  )"
+}
+```
+
+Encoding Issues Format:
+- List any ambiguities or inconsistencies found
+- Note any sections skipped and why
+- Identify any unclear logical relationships
+- Document any assumptions made during encoding'''
 
 criteriaMatchingReport = '''You are tasked with generating a policy criteria comparison report for a prior authorization request based on three key documents: a de-identified policy document, an itemized hospital bill, and patient data. The goal is to evaluate whether the patient's treatment meets the criteria outlined in the policy document, using the provided itemized bill and patient data.
 
