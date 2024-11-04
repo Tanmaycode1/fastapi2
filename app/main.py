@@ -1,30 +1,28 @@
-from fastapi import FastAPI, HTTPException
+# Update the imports section at the top if needed
+from fastapi import FastAPI, HTTPException, BackgroundTasks, File, UploadFile, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List, Optional, Dict, Any
+from pydantic import BaseModel, Field
+from typing import List, Optional, Dict, Any, Tuple
 import logging
 import os
 import time
 import json
-from pydantic import BaseModel
 import tempfile
 import uuid
 from datetime import datetime, timedelta
 import asyncio
-from dotenv import load_dotenv
-import subprocess
-import pytesseract
+import cv2
+import numpy as np
 from pdf2image import convert_from_path
-from PIL import Image
-import io
+from PIL import Image, ImageEnhance, ImageFilter
+import pytesseract
 import pypdf
 import shutil
-from fastapi import BackgroundTasks, File, UploadFile, Depends
 import psutil
 import threading
 from concurrent.futures import ThreadPoolExecutor
 import gc
 
-# Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -42,17 +40,442 @@ app.add_middleware(
 
 # Configuration
 TEMP_DIR = "/tmp/pdf_processing"
-DPI = 300
-MAX_THREADS = 4
+DPI = 400  # Higher DPI for better quality
+MAX_THREADS = min(4, os.cpu_count() or 2)
 PDF_QUALITY = 100
-SESSION_TIMEOUT = 3600  # 1 hour
-MAX_MEMORY_PERCENT = 80  # Maximum memory usage threshold
-CLEANUP_INTERVAL = 300  # Cleanup every 5 minutes
+SESSION_TIMEOUT = 3600
+MAX_MEMORY_PERCENT = 80
+CLEANUP_INTERVAL = 300
 
-# Storage for PDF processing tasks and sessions
+# OCR Configuration
+TESSERACT_CONFIG = '--oem 3 --psm 6 -c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?@#$%^&*()[]{}/<>\'\":;-_+=~ "'
+MIN_CONFIDENCE = 60
+
+# Storage
 pdf_tasks: Dict[str, Dict] = {}
 active_sessions: Dict[str, datetime] = {}
 session_locks: Dict[str, threading.Lock] = {}
+
+
+# Update the PDFProcessingRequest model
+class PDFProcessingRequest(BaseModel):
+    prompt_type: str = Field(
+        default="policy_json_conversion",
+        description="Type of processing to apply to the PDF"
+    )
+    priority: Optional[int] = Field(
+        default=3,
+        ge=1,
+        le=5,
+        description="Processing priority (1-5)"
+    )
+    max_tokens: Optional[int] = Field(
+        default=4000,
+        ge=1,
+        le=8000,
+        description="Maximum tokens for processing"
+    )
+    temperature: Optional[float] = Field(
+        default=0.7,
+        ge=0.0,
+        le=1.0,
+        description="Temperature for text generation"
+    )
+    ocr_language: str = Field(
+        default="eng",
+        description="Language for OCR processing"
+    )
+    enhance_scan: bool = Field(
+        default=True,
+        description="Apply image enhancement for better OCR results"
+    )
+
+# Enhanced image processing functions
+async def enhance_image_for_ocr(image: Image.Image) -> Image.Image:
+    """Enhanced image preprocessing for better OCR accuracy"""
+    try:
+        # Convert to numpy array
+        img_np = np.array(image)
+        
+        # Convert to grayscale if needed
+        if len(img_np.shape) == 3:
+            gray = cv2.cvtColor(img_np, cv2.COLOR_RGB2GRAY)
+        else:
+            gray = img_np
+        
+        # Scale up image
+        scale_percent = 200
+        width = int(gray.shape[1] * scale_percent / 100)
+        height = int(gray.shape[0] * scale_percent / 100)
+        scaled = cv2.resize(gray, (width, height), interpolation=cv2.INTER_CUBIC)
+        
+        # Apply adaptive thresholding
+        binary = cv2.adaptiveThreshold(
+            scaled,
+            255,
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+            cv2.THRESH_BINARY,
+            21,
+            11
+        )
+        
+        # Denoise
+        denoised = cv2.fastNlMeansDenoising(binary, None, 10, 7, 21)
+        
+        # Improve contrast
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        contrasted = clahe.apply(denoised)
+        
+        # Remove small noise and connect nearby text
+        kernel = np.ones((2,2), np.uint8)
+        morph = cv2.morphologyEx(contrasted, cv2.MORPH_CLOSE, kernel)
+        
+        # Sharpen edges
+        kernel_sharpen = np.array([[-1,-1,-1],
+                                 [-1, 9,-1],
+                                 [-1,-1,-1]])
+        sharpened = cv2.filter2D(morph, -1, kernel_sharpen)
+        
+        return Image.fromarray(sharpened)
+        
+    except Exception as e:
+        logger.error(f"Error in image enhancement: {str(e)}")
+        return image
+    finally:
+        gc.collect()
+
+async def extract_text_from_page(image: Image.Image, lang: str = 'eng') -> str:
+    """Extract text from a single page with multiple processing attempts"""
+    configs = [
+        '--oem 3 --psm 6 -c tessedit_char_blacklist={}[]©®°',
+        '--oem 3 --psm 3 -c tessedit_char_blacklist={}[]©®°',
+        '--oem 3 --psm 1 -c tessedit_char_blacklist={}[]©®°'
+    ]
+    
+    best_text = ""
+    max_confidence = 0
+    
+    enhanced_image = await enhance_image_for_ocr(image)
+    
+    for config in configs:
+        try:
+            # Get detailed OCR data
+            ocr_data = pytesseract.image_to_data(
+                enhanced_image,
+                lang=lang,
+                config=config,
+                output_type=pytesseract.Output.DICT
+            )
+            
+            # Calculate average confidence of words
+            confidences = [float(conf) for conf in ocr_data['conf'] if conf != '-1']
+            if confidences:
+                avg_confidence = sum(confidences) / len(confidences)
+                
+                if avg_confidence > max_confidence:
+                    # Build text from high-confidence words
+                    text_parts = []
+                    for i, word in enumerate(ocr_data['text']):
+                        if float(ocr_data['conf'][i]) > 60 and word.strip():
+                            text_parts.append(word)
+                    
+                    text = ' '.join(text_parts)
+                    if len(text) > len(best_text):
+                        best_text = text
+                        max_confidence = avg_confidence
+                        
+        except Exception as e:
+            logger.error(f"OCR attempt failed: {str(e)}")
+            continue
+    
+    return clean_ocr_text(best_text)
+
+def clean_ocr_text(text: str) -> str:
+    """Clean OCR text with improved accuracy"""
+    import re
+    
+    # Remove random single characters
+    text = re.sub(r'\b[a-zA-Z]\b(?!\s*[:.,-])', '', text)
+    
+    # Remove repeated special characters
+    text = re.sub(r'[-=_.,:;]{2,}', ' ', text)
+    
+    # Clean lines
+    lines = []
+    for line in text.split('\n'):
+        line = line.strip()
+        if line:
+            # Calculate ratio of alphanumeric characters
+            alpha_ratio = sum(c.isalnum() or c.isspace() for c in line) / len(line)
+            if alpha_ratio > 0.5:  # Line must be at least 50% alphanumeric
+                lines.append(line)
+    
+    # Join lines
+    text = '\n'.join(lines)
+    
+    # Fix common OCR errors
+    replacements = {
+        '|': 'I',
+        '{}': '',
+        '[]': '',
+        '()': '',
+        '0}': '0',
+        '{0': '0',
+        'l.': 'I.',
+        '©': 'O',
+        '®': 'R',
+        '°': 'o',
+    }
+    
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    
+    # Remove garbage characters
+    text = re.sub(r'[^\x00-\x7F]+', '', text)
+    
+    # Fix spacing
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'\n\s*\n\s*\n', '\n\n', text)
+    
+    return text.strip()
+
+async def process_pdf_content(
+    content: bytes,
+    task_id: str,
+    session_id: str,
+    prompt_type: str,
+    ocr_language: str = 'eng',
+    max_tokens: Optional[int] = None,
+    temperature: Optional[float] = None
+):
+    """Process PDF content with improved text extraction"""
+    session_dir = os.path.join(TEMP_DIR, session_id)
+    temp_path = os.path.join(session_dir, task_id)
+    os.makedirs(temp_path, exist_ok=True)
+    pdf_path = os.path.join(temp_path, "input.pdf")
+    
+    try:
+        # Save PDF
+        with open(pdf_path, 'wb') as f:
+            f.write(content)
+            
+        # Try direct text extraction first
+        text_content = []
+        needs_ocr = True
+        
+        try:
+            with open(pdf_path, 'rb') as file:
+                pdf_reader = pypdf.PdfReader(file)
+                total_pages = len(pdf_reader.pages)
+                meaningful_pages = 0
+                
+                for page_num, page in enumerate(pdf_reader.pages, 1):
+                    page_text = page.extract_text()
+                    if page_text and len(page_text.split()) > 5:
+                        meaningful_pages += 1
+                        text_content.append(f"\nPage {page_num}\n{'='*50}\n\n{page_text}")
+                
+                if meaningful_pages >= (total_pages * 0.5):
+                    needs_ocr = False
+                    final_text = '\n'.join(text_content)
+                    pdf_tasks[task_id].update({
+                        'status': 'completed',
+                        'result': final_text,
+                        'completion_time': datetime.utcnow().isoformat(),
+                        'ocr_used': False
+                    })
+                    return
+        except Exception as e:
+            logger.error(f"Direct text extraction failed: {str(e)}")
+        
+        if needs_ocr:
+            # Convert PDF to images
+            images = convert_from_path(
+                pdf_path,
+                dpi=400,
+                output_folder=temp_path,
+                fmt='png',
+                grayscale=True,
+                thread_count=MAX_THREADS,
+                use_pdftocairo=True
+            )
+            
+            total_pages = len(images)
+            logger.info(f"Processing {total_pages} pages for task {task_id}")
+            
+            text_parts = []
+            text_parts.append(f"Document Information:\nTotal Pages: {total_pages}\n")
+            
+            for page_num, image in enumerate(images, 1):
+                try:
+                    # Update progress
+                    pdf_tasks[task_id].update({
+                        'progress': (page_num / total_pages) * 100,
+                        'current_page': page_num
+                    })
+                    
+                    # Extract and clean text
+                    page_text = await extract_text_from_page(image, ocr_language)
+                    
+                    if page_text.strip():
+                        text_parts.append(f"\nPage {page_num}\n{'='*50}\n")
+                        text_parts.append(page_text)
+                    
+                except Exception as e:
+                    logger.error(f"Error processing page {page_num}: {str(e)}")
+                    text_parts.append(f"\nError processing page {page_num}\n")
+                finally:
+                    image.close()
+                    gc.collect()
+            
+            # Combine and clean all text
+            final_text = '\n'.join(text_parts)
+            final_text = clean_ocr_text(final_text)
+            
+            pdf_tasks[task_id].update({
+                'status': 'completed',
+                'result': final_text,
+                'completion_time': datetime.utcnow().isoformat(),
+                'ocr_used': True,
+                'word_count': len(final_text.split())
+            })
+            
+    except Exception as e:
+        logger.error(f"Error processing PDF {task_id}: {str(e)}")
+        pdf_tasks[task_id].update({
+            'status': 'failed',
+            'error': str(e),
+            'error_time': datetime.utcnow().isoformat()
+        })
+    finally:
+        try:
+            if os.path.exists(temp_path):
+                shutil.rmtree(temp_path)
+        except Exception as e:
+            logger.error(f"Error cleaning up temporary files: {str(e)}")
+        gc.collect()
+
+@app.post("/api/process-pdf")
+async def process_pdf(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    request: PDFProcessingRequest = Depends()
+):
+    """Enhanced PDF processing endpoint with better error handling and progress tracking"""
+    if not file.filename.lower().endswith('.pdf'):
+        raise HTTPException(
+            status_code=400, 
+            detail="Invalid file format. Only PDF files are supported."
+        )
+
+    try:
+        # Create new session and task IDs
+        session_id = str(uuid.uuid4())
+        task_id = str(uuid.uuid4())
+        
+        # Initialize session
+        active_sessions[session_id] = datetime.utcnow()
+        session_locks[session_id] = threading.Lock()
+        
+        # Read file content
+        content = await file.read()
+        
+        # Validate PDF content
+        if len(content) == 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Empty PDF file provided"
+            )
+            
+        # Initialize task with detailed metadata
+        pdf_tasks[task_id] = {
+            'status': 'processing',
+            'filename': file.filename,
+            'session_id': session_id,
+            'prompt_type': request.prompt_type,
+            'submission_time': datetime.utcnow().isoformat(),
+            'priority': request.priority,
+            'ocr_language': request.ocr_language,
+            'enhance_scan': request.enhance_scan,
+            'file_size': len(content),
+            'progress': 0,
+            'pages_processed': 0,
+            'total_pages': None
+        }
+
+        # Start background processing
+        background_tasks.add_task(
+            process_pdf_content,
+            content,
+            task_id,
+            session_id,
+            request.prompt_type,
+            request.ocr_language,
+            request.max_tokens,
+            request.temperature
+        )
+
+        return {
+            'task_id': task_id,
+            'session_id': session_id,
+            'status': 'processing',
+            'message': 'PDF processing started',
+            'estimated_time': 'Calculating...',
+            'filename': file.filename
+        }
+
+    except Exception as e:
+        logger.error(f"Error initiating PDF processing: {str(e)}")
+        # Cleanup any partial session/task data
+        if 'session_id' in locals():
+            await session_manager.cleanup_session(session_id)
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/pdf-status/{task_id}")
+async def get_pdf_status(task_id: str):
+    """Enhanced status endpoint with detailed progress information"""
+    if task_id not in pdf_tasks:
+        raise HTTPException(
+            status_code=404,
+            detail="Task not found. The task may have expired or been cleaned up."
+        )
+    
+    task = pdf_tasks[task_id]
+    
+    # Update session access time
+    session_id = task.get('session_id')
+    if session_id and session_id in active_sessions:
+        active_sessions[session_id] = datetime.utcnow()
+    
+    # Calculate processing time
+    start_time = datetime.fromisoformat(task['submission_time'])
+    processing_time = (datetime.utcnow() - start_time).total_seconds()
+    
+    response = {
+        'status': task['status'],
+        'filename': task.get('filename'),
+        'processing_time': round(processing_time, 2),
+        'progress': task.get('progress', 0),
+        'pages_processed': task.get('pages_processed', 0),
+        'total_pages': task.get('total_pages'),
+        'ocr_used': task.get('ocr_used', False),
+    }
+    
+    if task['status'] == 'completed':
+        response.update({
+            'text_content': task['result'],
+            'completion_time': task.get('completion_time'),
+            'text_length': len(task['result']),
+            'word_count': len(task['result'].split()),
+        })
+    elif task['status'] == 'failed':
+        response.update({
+            'error': task.get('error'),
+            'error_time': task.get('error_time'),
+            'last_successful_page': task.get('last_successful_page', 0)
+        })
+    
+    return response
 
 class SessionManager:
     def __init__(self):
@@ -98,7 +521,7 @@ class SessionManager:
                         oldest_session = min(active_sessions.items(), key=lambda x: x[1])[0]
                         await self.cleanup_session(oldest_session)
                         memory = psutil.virtual_memory()
-                        
+                    
                     gc.collect()
                     
             except Exception as e:
@@ -135,243 +558,67 @@ class SessionManager:
         finally:
             if lock:
                 lock.release()
-
-class PDFProcessingRequest(BaseModel):
-    prompt_type: str = "policy_json_conversion"
-    priority: Optional[int] = 3
-    max_tokens: Optional[int] = 4000
-    temperature: Optional[float] = 0.7
-    ocr_language: str = "eng"
+                
+    async def get_active_sessions(self):
+        """Get count and details of active sessions"""
+        try:
+            current_time = datetime.utcnow()
+            active_count = len(active_sessions)
+            session_details = [
+                {
+                    'session_id': session_id,
+                    'age': (current_time - last_access).total_seconds(),
+                    'task_count': len([t for t in pdf_tasks.values() if t.get('session_id') == session_id])
+                }
+                for session_id, last_access in active_sessions.items()
+            ]
+            
+            return {
+                'active_count': active_count,
+                'sessions': session_details
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting active sessions: {str(e)}")
+            return {'active_count': 0, 'sessions': []}
 
 # Initialize session manager
 session_manager = SessionManager()
 
+# Add startup event to initialize session manager
 @app.on_event("startup")
 async def startup_event():
-    """Initialize session management on startup"""
-    await session_manager.start()
-    os.makedirs(TEMP_DIR, exist_ok=True)
+    """Initialize application resources on startup"""
+    try:
+        # Create temporary directory
+        os.makedirs(TEMP_DIR, exist_ok=True)
+        
+        # Start session manager
+        await session_manager.start()
+        
+        logger.info("Application startup completed successfully")
+        
+    except Exception as e:
+        logger.error(f"Error during startup: {str(e)}")
+        raise
 
+# Add shutdown event for cleanup
 @app.on_event("shutdown")
 async def shutdown_event():
-    """Cleanup on shutdown"""
-    # Clean up all sessions
-    for session_id in list(active_sessions.keys()):
-        await session_manager.cleanup_session(session_id)
-    
-    # Clean up temporary directory
-    if os.path.exists(TEMP_DIR):
-        shutil.rmtree(TEMP_DIR)
-
-def preprocess_image(image: Image.Image) -> Image.Image:
-    """Preprocess image for better OCR accuracy"""
+    """Cleanup resources on shutdown"""
     try:
-        # Convert to grayscale
-        image = image.convert('L')
+        # Clean up all sessions
+        for session_id in list(active_sessions.keys()):
+            await session_manager.cleanup_session(session_id)
         
-        # Increase contrast
-        from PIL import ImageEnhance
-        enhancer = ImageEnhance.Contrast(image)
-        image = enhancer.enhance(2.0)
-        
-        # Denoise
-        from PIL import ImageFilter
-        image = image.filter(ImageFilter.MedianFilter(size=3))
-        
-        return image
-    finally:
-        # Ensure proper cleanup of image objects
-        gc.collect()
-
-async def process_pdf_content(
-    content: bytes,
-    task_id: str,
-    session_id: str,
-    prompt_type: str,
-    ocr_language: str = "eng",
-    max_tokens: Optional[int] = None,
-    temperature: Optional[float] = None
-):
-    """Process PDF content with session management"""
-    session_dir = os.path.join(TEMP_DIR, session_id)
-    temp_path = os.path.join(session_dir, task_id)
-    os.makedirs(temp_path, exist_ok=True)
-    pdf_path = os.path.join(temp_path, "input.pdf")
-    
-    try:
-        # Update session access time
-        active_sessions[session_id] = datetime.utcnow()
-        
-        with open(pdf_path, 'wb') as f:
-            f.write(content)
-
-        text_content = ""
-        is_scanned = True
-        
-        # Try normal PDF extraction first
-        try:
-            with open(pdf_path, 'rb') as file:
-                pdf_reader = pypdf.PdfReader(file)
-                for page in pdf_reader.pages:
-                    page_text = page.extract_text()
-                    if page_text.strip():
-                        text_content += page_text + "\n"
-                        is_scanned = False
-        except Exception as e:
-            logger.warning(f"Standard PDF extraction failed: {str(e)}")
-
-        # Use OCR if needed
-        if not text_content.strip() or is_scanned:
-            logger.info(f"Using OCR for PDF {task_id}")
+        # Clean up temporary directory
+        if os.path.exists(TEMP_DIR):
+            shutil.rmtree(TEMP_DIR)
             
-            images = []
-            try:
-                images = convert_from_path(
-                    pdf_path,
-                    dpi=DPI,
-                    output_folder=temp_path,
-                    fmt="png",
-                    thread_count=min(MAX_THREADS, os.cpu_count() or 2)
-                )
-
-                text_content = f"Total Pages: {len(images)}\n\n"
-                
-                for i, image in enumerate(images):
-                    try:
-                        processed_image = preprocess_image(image)
-                        page_text = pytesseract.image_to_string(
-                            processed_image,
-                            lang=ocr_language,
-                            config='--oem 3 --psm 6'
-                        )
-                        text_content += f"\n{'='*50}\nPage {i + 1}\n{'='*50}\n\n"
-                        text_content += page_text.strip() + "\n"
-                        
-                    except Exception as e:
-                        logger.error(f"Error processing page {i + 1}: {str(e)}")
-                        text_content += f"[Error processing page {i + 1}]\n"
-                    finally:
-                        # Clean up page images
-                        image.close()
-                        del image
-                        if 'processed_image' in locals():
-                            processed_image.close()
-                            del processed_image
-                        gc.collect()
-                        
-            finally:
-                # Clean up images list
-                del images
-                gc.collect()
-
-        pdf_tasks[task_id].update({
-            'status': 'completed',
-            'result': text_content,
-            'completion_time': datetime.utcnow().isoformat(),
-            'ocr_used': is_scanned
-        })
-
+        logger.info("Application shutdown completed successfully")
+        
     except Exception as e:
-        logger.error(f"Error processing PDF {task_id}: {str(e)}")
-        pdf_tasks[task_id].update({
-            'status': 'failed',
-            'error': str(e)
-        })
-    
-    finally:
-        # Clean up temporary files for this task
-        try:
-            if os.path.exists(temp_path):
-                shutil.rmtree(temp_path)
-        except Exception as e:
-            logger.error(f"Error cleaning up temporary files: {str(e)}")
-
-@app.post("/api/process-pdf")
-async def process_pdf(
-    background_tasks: BackgroundTasks,
-    file: UploadFile = File(...),
-    request: PDFProcessingRequest = Depends()
-):
-    """Process PDF file with session management"""
-    if not file.filename.endswith('.pdf'):
-        raise HTTPException(status_code=400, detail="File must be a PDF")
-
-    try:
-        # Create new session and task IDs
-        session_id = str(uuid.uuid4())
-        task_id = str(uuid.uuid4())
-        
-        # Initialize session
-        active_sessions[session_id] = datetime.utcnow()
-        session_locks[session_id] = threading.Lock()
-        
-        content = await file.read()
-        
-        pdf_tasks[task_id] = {
-            'status': 'processing',
-            'filename': file.filename,
-            'session_id': session_id,
-            'prompt_type': request.prompt_type,
-            'submission_time': datetime.utcnow().isoformat(),
-            'priority': request.priority,
-            'ocr_language': request.ocr_language
-        }
-
-        background_tasks.add_task(
-            process_pdf_content,
-            content,
-            task_id,
-            session_id,
-            request.prompt_type,
-            request.ocr_language,
-            request.max_tokens,
-            request.temperature
-        )
-
-        return {
-            'task_id': task_id,
-            'session_id': session_id,
-            'status': 'processing',
-            'message': 'PDF processing started'
-        }
-
-    except Exception as e:
-        logger.error(f"Error initiating PDF processing: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/api/pdf-status/{task_id}")
-async def get_pdf_status(task_id: str):
-    """Get PDF processing task status"""
-    if task_id not in pdf_tasks:
-        raise HTTPException(status_code=404, detail="Task not found")
-    
-    task = pdf_tasks[task_id]
-    
-    # Update session access time if task belongs to a session
-    session_id = task.get('session_id')
-    if session_id and session_id in active_sessions:
-        active_sessions[session_id] = datetime.utcnow()
-    
-    if task['status'] == 'completed':
-        return {
-            'status': 'completed',
-            'text_content': task['result'],
-            'filename': task.get('filename'),
-            'completion_time': task.get('completion_time'),
-            'ocr_used': task.get('ocr_used', False)
-        }
-    elif task['status'] == 'failed':
-        return {
-            'status': 'failed',
-            'error': task.get('error'),
-            'filename': task.get('filename')
-        }
-    else:
-        return {
-            'status': 'processing',
-            'filename': task.get('filename')
-        }
-
+        logger.error(f"Error during shutdown: {str(e)}")
 
 @app.post("/api/convert-policy-to-json")
 async def convert_policy_to_json(request: Dict[str, Any]):
@@ -621,18 +868,3 @@ async def health_check():
         }
     }
 
-# Add cleanup handler
-@app.on_event("shutdown")
-async def cleanup_pdf_tasks():
-    """Cleanup PDF tasks and executor"""
-    current_time = datetime.utcnow()
-    for task_id in list(pdf_tasks.keys()):
-        task = pdf_tasks[task_id]
-        if task['status'] in ['completed', 'failed']:
-            completion_time = datetime.fromisoformat(
-                task.get('completion_time', current_time.isoformat())
-            )
-            if (current_time - completion_time).total_seconds() > 3600:
-                del pdf_tasks[task_id]
-    
-    executor.shutdown(wait=True)
