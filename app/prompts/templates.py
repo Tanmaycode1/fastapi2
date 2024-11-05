@@ -139,7 +139,6 @@ Encoding Issues Format:
 - Identify any unclear logical relationships
 - Document any assumptions made during encoding'''
 
-
 criteriaMatchingReport = '''You are tasked with generating a policy criteria comparison report for a prior authorization request based on three key documents: a de-identified policy document, an itemized hospital bill, and patient data. The goal is to evaluate whether the patient's treatment meets the criteria outlined in the policy document, using the provided itemized bill and patient data.
 
 Inputs:
@@ -400,7 +399,7 @@ Generate a JSON object with the following structure:
 Return only the JSON object.'''
 
 claimReviewReport = '''You are tasked with generating a detailed medical claim review report based on the provided documents. The review aims to determine if the patient's medical claim meets the criteria for coverage as outlined in the policy document, using the itemized bill and patient data provided. Your goal is to evaluate the claim against established criteria and provide a clear and structured assessment.
-    
+
 **Inputs:**
 1. **Policy Document (De-identified):** Contains coverage criteria including hospital stay limits, medication coverage specifics (generic vs. brand), approved procedures, and diagnostic tests. This document outlines the rules and restrictions for coverage.
 2. **Itemized Hospital Bill:** Details all charges associated with the patient's hospital stay, including room charges, medication costs, procedures, and diagnostic tests.
@@ -497,7 +496,6 @@ Multiple Codes: Identify instances where multiple codes were used for services t
 Incorrect Balance: Compare the final balance post-insurance payment with the expected balance, based on the billed amount and insurer's payment.
 Mismatched Codes: Ensure the treatment codes align with the diagnosis; flag any mismatches.
 '''
-
 
 updatePolicyChangesPrompt = '''I will provide you with two files:
 

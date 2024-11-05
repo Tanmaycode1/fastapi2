@@ -253,7 +253,6 @@ def clean_ocr_text(text: str) -> str:
     text = re.sub(r'\n\s*\n\s*\n', '\n\n', text)
     
     return text.strip()
-
 async def process_pdf_content(
     content: bytes,
     task_id: str,
@@ -265,7 +264,7 @@ async def process_pdf_content(
 ):
     """Process PDF content with improved text extraction"""
     session_dir = os.path.join(TEMP_DIR, session_id)
-    temp_path = os.path.join(session_dir, task_id)
+    temp_path = os.path.join(temp_path, task_id)
     os.makedirs(temp_path, exist_ok=True)
     pdf_path = os.path.join(temp_path, "input.pdf")
     
@@ -304,7 +303,7 @@ async def process_pdf_content(
             logger.error(f"Direct text extraction failed: {str(e)}")
         
         if needs_ocr:
-            # Convert PDF to images
+            # Convert PDF to images using poppler
             images = convert_from_path(
                 pdf_path,
                 dpi=400,
@@ -312,8 +311,9 @@ async def process_pdf_content(
                 fmt='png',
                 grayscale=True,
                 thread_count=MAX_THREADS,
-                use_pdftocairo=True
+                use_pdftocairo=True,  # Explicitly use pdftocairo (part of poppler)
             )
+        
             
             total_pages = len(images)
             logger.info(f"Processing {total_pages} pages for task {task_id}")

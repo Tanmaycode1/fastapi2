@@ -93,7 +93,7 @@ def test_pdf_processing(pdf_path: str, api_base_url: str = "http://localhost:800
     except Exception as e:
         print(f"Error: {str(e)}")
 
-if __name__ == "__main__":
+if __name__ == "_main_":
     # Example usage
     pdf_file_path = "normal.pdf"  # Replace with your PDF path
     test_pdf_processing(pdf_file_path)
