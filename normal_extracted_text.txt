@@ -1,0 +1,1698 @@
+
+Page 1
+==================================================
+
+2024 Computed Tomography 
+(CT) Chest
+Diagnostic Imaging
+P_11357, P_11438
+Copyright © 2024 WNS (Holdings) Ltd.
+Last Review Date: 10/11/2024
+Previous Review Date: 08/29/2024
+Guideline Initiated: 06/30/2019
+
+Page 2
+==================================================
+
+Table of Contents
+Computed Tomography (CT) Chest  ..............................................................................  3
+CT General Contraindications  ...............................................................................  3
+CT Chest Contraindications  ..................................................................................  3
+Preamble: Pediatric Diagnostic Imaging  .................................................................  3
+CT Chest Guideline  .............................................................................................  4
+Combination CT Abdomen/CT Chest/CT Neck with MUGA/CT Pelvis/MRI Neck  .............  8
+Combination CT Chest/CT Neck  ............................................................................  8
+2024 Computed Tomography (CT) Low Dose for Lung Cancer (LDCT) Screening  ..........  8
+Low Dose Computed Tomography (LDCT) for Lung Cancer Screening  ..................  9
+Chest Cancer Surveillance  .................................................................................  10
+Bone Cancer Surveillance  ............................................................................  10
+Breast Cancer Surveillance v4.2024  .............................................................  11
+Esophageal and Esophagogastric Junction Cancer Surveillance v4.2024  ............  15
+Mesothelioma: Pleural Surveillance  ..............................................................  19
+Non-Small Cell Lung Cancer Surveillance v7.2024  ..........................................  19
+Occult Primary Cancer Surveillance  ..............................................................  24
+Small-Cell Lung Cancer Surveillance v3.2024  ................................................  24
+Soft Tissue Sarcoma Surveillance  .................................................................  25
+CT Chest Procedure Codes  .................................................................................  26
+CT Chest Summary of Changes  ..........................................................................  27
+CT Chest Definitions  ................................................................................................  28
+CT Chest References  ...............................................................................................  38
+Disclaimer & Legal Notice  .........................................................................................  41
+2
+
+Page 3
+==================================================
+
+Computed Tomography (CT) Chest
+NCD 220.1
+See also , NCD 220.1 : Computed Tomography at https://www.cms.gov/medicare-
+coverage-database/search.aspx  if applicable to individual's healthplan membership .
+NCD 210.14
+See also , NCD 210.14 : Lung Cancer Screening with Low Dose Computed Tomogra-
+phy (LDCT) at https://www.cms.gov/medicare-coverage-database/search.aspx  if ap-
+plicable to individual's healthplan membership .
+CT General Contraindications
+Computed tomography (CT) may be contraindicated for ANY of the following: [ 2] [41]
+•Allergy to contrast (if contrast is used)
+•Pregnancy
+•Renal impairment and dialysis unmanageable (if contrast is used)
+CT Chest Contraindications
+Computerized tomography (CT) of the chest may be contraindicated for ANY of the following: [ 8] 
+[5]
+•Lung nodule monitoring for nodule(s) size less than 6 mm and low-risk for lung cancer1. [40]
+•Hemodynamic instability (eg, abnormal laboratory values, blood pressure uncontrolled, renal 
+failure)
+•Safety concern with ability to tolerate procedure (eg, contrast allergy, comorbid lung disease 
+or injury makes lying in prone position intolerable).
+Preamble: Pediatric Diagnostic Imaging
+1Fleischner Criteria recommendations for nodule(s) sized less than 6 mm are that CT may be appropriate if nodules are in 
+the upper lobe, with suspicious morphology, or when high-risk for lung cancer. [ 40]
+3
+
+Page 4
+==================================================
+
+HealthHelp's clinical guidelines for the Diagnostic Imaging program, are intended to apply to both adults and pediatrics (21 
+years of age or younger), unless otherwise specified within the criteria.
+CT Chest Guideline
+Computed tomography (CT) of the chest is considered medically appropriate when the documen-
+tation demonstrates ANY of the following:
+1. Cancer is suspected or known for ANY of the following: (* NOTE : for lung cancer screening 
+with low-dose CT (LDCT), see the CT: Low Dose CT (LDCT) for Lung Cancer Screening 
+Guideline)
+a. Cancer is known and ANY of the following:
+i. Active treatment within the past 12 months
+ii. Recurrence or metastasis is suspected. [ 10]
+iii. Staging or restaging evaluation [ 10] [9]
+iv. Surveillance following the National Comprehensive Cancer Network 
+(NCCN) Guidelines  recommended schedule ( see Surveillance  section ).
+b. Cancer is suspected when prior imaging is non-diagnostic or indeterminate.
+c. Pulmonary nodules incidentally demonstrated on prior imaging and ANY of the 
+following: [ 11] [28]
+i. ANY of the following when EXCLUDING  low dose CT:
+A. Nodules are detected on non-chest CT and ANY of the following:
+I. Nodules are 8 mm or less, follow-up according to Fleischner 
+Criteria ( see Definitions  section below ).
+II. Nodules are more than 8 mm OR their features are very 
+suspicious.
+B. Nodules are detected on non-screening, non-LDCT of the chest, 
+age is 35 years or older AND are aligned with Fleischner Criteria 
+(see Definitions  section below ). (*NOTE : EXCLUDES  lung cancer 
+screening, history of cancer and immunosuppression ) [24]
+C. Nodules are detected on X-rays that are non-diagnostic or indeter-
+minate.
+ii. Pulmonary nodule surveillance (follow-up) for lung nodule detected on ini-
+tial low dose CT and aligned with American College of Radiology (ACR) Lung 
+RADS Assessment Categories. (In situations with multiple nodules, the larg-
+est and/or type should drive imaging type and frequency.)
+4
+
+Page 5
+==================================================
+
+d. Screening for cancer in the lung (eg, metastasis) per the United States Preventa-
+tive Task Force (USPTF)/National Comprehensive Cancer Network (NCCN) recom-
+mendations [ 3] [32]
+2. Chest mass (non-lung parenchymal) and EITHER  of the following: [ 1]
+a. Mass or lesion, including lymphadenopathy, when initial imaging is non-diagnostic 
+or indeterminate.
+b. Thymoma screening when myasthenia gravis is known. [ 36]
+3. Chest wall area and ANY of the following: [ 25] [33]
+a. Injuries are suspected (eg, costochondral cartilage, manubriosternal joint injuries, 
+musculotendinous, pectoralis major, sternoclavicular joint), for treatment planning.
+b. Malformations (eg, pectus carinatum, pectus excavatum, scoliosis) are known, with 
+cardiorespiratory symptoms (eg, chest pain, shortness of breath), when treatment 
+is being considered. [ 14]
+c. Mass or lesion and initial imaging is non-diagnostic or indeterminate. (* NOTE : MRI 
+is preferred .) [1]
+d. Pain is known AND chest and/or rib films are completed. [ 35]
+4. Congenital malformation (eg, thoracic anomalies), when an anomaly is demonstrated or 
+suspected from prior X-ray OR there is the presence of congenital heart disease with 
+pulmonary hypertension. [ 14]
+5. Gestational trophoblastic disease is known, surgery is completed AND human chorionic 
+gonadotropin (hCG) is NOT declining. [ 23]
+6. Granulomatosis with polyangiitis (Wegener’s granulomatosis) [ 12]
+7. Infectious condition is suspected or known, including ANY of the following:
+a. Coronavirus disease/COVID-19 is suspected or known and ANY of the following: 
+(*NOTE:  Imaging is not indicated when COVID-19 presents with mild symptoms, 
+unless there is a high-risk for disease progression.)  [39] [21] [16]
+i. Acute COVID-19 is known, respiratory status is worsening AND chest X-ray 
+is abnormal, non-diagnostic or indeterminate.
+ii. Long-term/chronic COVID-19 is suspected and ANY of the following:
+A. COVID-19 history with hypoxia or impaired lung function.
+B. Fibrosis is known with continued symptoms (eg, cough, fatigue, 
+shortness of breath).
+C. Oxygen saturation (O 2 sat) is low and chest X-ray is completed. 
+(*NOTE : A low O 2 sat is considered less than 94% in the acutely 
+5
+
+Page 6
+==================================================
+
+ill and less than 88% for those at risk for hypercapnic respiratory 
+failure .)
+D. Pulmonary function test (PFT) shows restriction and decreased diffu-
+sion capacity.
+b. Infection follow-up imaging for ANY of the following:
+i. Abscess, empyema or pleural effusions is visualized on chest X-ray. [ 30] 
+[44]
+ii. Non-resolving pneumonia or inflammatory disease is documented by AT 
+LEAST 2  imaging studies with EITHER  of the following:
+A. Unimproved with 4 weeks of antibiotic treatment
+B. Unresolved at 8 weeks
+c. Signs/symptoms of infection are present (eg, elevated inflammatory markers, fe-
+ver) AND X-ray is non-diagnostic or indeterminate. [ 20]
+d. Tuberculosis is suspected or known and prior X-ray is non-diagnostic or indetermi-
+nate. [ 31]
+8. Interstitial lung disease/diffuse lung disease is suspected or known, initial X-ray is comple-
+ted and ANY of the following: (* NOTE : X-ray is NOT required for chronic disease ) [25] 
+[15] [7]
+a. Biopsy guidance for selecting the most appropriate site for biopsy of diffuse lung 
+disease
+b. Collagen vascular disease is known AND interstitial lung disease is suspected.
+c. Interstitial disease/fibrosis is known, for monitoring treatment response.
+d. Pulmonary function test (PFT) shows a restrictive pattern OR signs/symptoms 
+(anorexia, chest discomfort, shortness of breath) are present, after initial X-ray
+e. Signs/symptoms (eg, shortness of breath, persistent dyspnea, persistent cough) 
+are UNRESPONSIVE  to treatment.
+9. Multiple endocrine neoplasia 1 (MEN1), for follow-up every 1 to 3 years
+10. Peri-procedural planning to guide invasive intervention in the chest area and post-opera-
+tive follow-up care. [ 6]
+11. Prior imaging demonstrates ANY of the following:
+a. Chest X-ray is completed and ANY of the following:
+i. Cough, chronic (at least 8 weeks) and EITHER  of the following: [ 27] [19]
+6
+
+Page 7
+==================================================
+
+A. Bronchiectasis is suspected. [ 37]
+B. NO common causes (eg, angiotensin-converting enzyme [ACE] in-
+hibitor discontinuation, asthma, gastroesophageal reflux disease, 
+postnasal drip) are found.
+ii. Hemoptysis (bloody sputum) [ 29]
+iii. Pneumothorax is demonstrated on chest X-ray.
+b. Vocal cord paralysis on endoscopic exam (CT neck and CT chest are an approvable 
+combination.)
+12. Prior CT of chest is non-diagnostic or indeterminate. (* NOTE : One follow-up is appropriate 
+to evaluate for changes since preceding imaging finding[s]. Further surveillance is appro-
+priate when lesion is specified as highly suspicious or there is a change since last exam. )
+13. Pulmonary hypertension is suspected. [ 34]
+14. Thoracic aneurysm is suspected or known and ANY of the following: [ 4] [6]
+a. Aortic root or ascending aorta surveillance for EITHER  of the following:
+i. 3.5 cm to 4.4 cm, follow-up annually
+ii. 4.5 cm to 5.5 cm or growth rate more than 0.5 cm per year, follow-up 
+every 6 months
+b. Descending aorta surveillance for EITHER  of the following:
+i. 4.0 cm to 4.9 cm, follow-up annually
+ii. 5.0 cm to 6.0 cm or growth rate greater than 0.5 cm, follow-up every 6 
+months
+c. Genetically mediated (aortic root or ascending aorta, Marfan's syndrome) surveil-
+lance for EITHER  of the following:
+i. 3.5 cm to 3.9 cm, follow-up annually
+ii. 4.0 cm to 5.0 cm, follow-up every 6 months
+d. Initial detection
+15. Weight loss occurred and is unintentional and unexplained (more than 10% of body weight 
+in 2 months or more than 5% of body weight in 6 months) AND prior imaging is abnor-
+mal, non-diagnostic or indeterminate.
+7
+
+Page 8
+==================================================
+
+Combination CT Abdomen/CT Chest/CT Neck with MUGA/CT 
+Pelvis/MRI Neck
+A computed tomography (CT) of the abdomen combined with CT of the chest, CT of the neck 
+with mulitigated acquisition scan (MUGA), CT of the pelvis and magnetic resonance imaging (MRI) 
+of the neck is considered medically appropriate when the documentation demonstrates a known 
+tumor or cancer, for initial staging or baseline evaluation before chemotherapy or radiation treat-
+ment.
+Combination CT Chest/CT Neck
+A computed tomography (CT) of the chest combined with a CT of the neck is considered medically 
+appropriate when the documentation demonstrates ANY of the following:
+1. Laryngeal nerve lesion recurrence is suspected.
+2. Vocal cord paralysis
+LCD 33459
+See also , LCD 33459 : Computerized Axial Tomography (CT), Thorax at https://
+www.cms.gov/medicare-coverage-database/search.aspx  if applicable to individual's 
+healthplan membership .
+LCD 35391
+See also , LCD 35391 : Multiple Imaging in Oncology at https://www.cms.gov/medi-
+care-coverage-database/search.aspx  if applicable to individual's healthplan member-
+ship.
+2024 Computed Tomography (CT) Low Dose for Lung Cancer 
+(LDCT) Screening
+Diagnostic Imaging
+Copyright © 2024 WNS (Holdings) Ltd.
+Last Review Date: 08/29/2024
+Previous Review Date: 04/03/2024
+Guideline Initiated: 06/30/2023
+8
+
+Page 9
+==================================================
+
+Low Dose Computed Tomography (LDCT) for Lung Cancer 
+Screening
+NCD 210.14
+See also , NCD 210.14 : Lung Cancer Screening with Low Dose Computed Tomogra-
+phy (LDCT) at https://www.cms.gov/medicare-coverage-database/search.aspx  if ap-
+plicable to individual's healthplan membership .
+NCD 220.1
+See also , NCD 220.1 : Computed Tomography at https://www.cms.gov/medicare-
+coverage-database/search.aspx  if applicable to individual's healthplan membership .
+LDCT for Lung Cancer Screening Guideline
+A low-dose computed tomography (LDCT) for lung cancer screening of high risk, asymptomatic 
+(eg, NO hemoptysis or chronic productive cough) individuals is considered medically appropriate 
+when the documentation demonstrates that ANY of the following criteria are met: [ 17] [32] [42] 
+[43] [3]
+I. ALL of the following:
+A. Age is 50 to 80 years. (* NOTE : May approve for individuals over the age limit if 
+the individual is a candidate for and willing to undergo curative treatment .)
+B. Current cigarette smoker with 20 pack years or more of smoking OR past smoker, 
+with 20 pack years or more of smoking, who quit within the past 15 years.
+NOTICE
+To calculate pack years for different types of tobacco use (eg, pipe, 
+vape), use a Smoking Pack Year Calculator, such as: www.smoking-
+packyears.com or www.jeffersonradiology.com/calculate-packs-year.
+II. Definitive treatment of non-small cell lung cancer is completed, for annual LDCT surveil-
+lance, for EITHER  of the following:
+1. Stage I to stage II (treated with surgery, + chemotherapy); starting at year 2 to 3 
+of surveillance
+9
+
+Page 10
+==================================================
+
+2. Stage I to stage II (treated primarily with radiation) OR stage III to stage IV, with 
+all sites treated with definitive intent; starting at year 5 of surveillance
+III. Nodule seen on initial LDCT, for follow-up per Lung Rads criteria ( See Definitions  section ) 
+(*NOTE : If multple nodules, the largest and type is used for decision making .)
+IV. Prior LDCT imaging is non-diagnostic or indeterminate. (* NOTE : One follow-up is appro-
+priate to evaluate for changes, since preceding imaging finding[s] and at least 12 months 
+after previous exam, unless significant symptomatic changes have occurred. Further sur-
+veillance is appropriate when lesion is specified as highly suspicious or there is a change 
+since last exam. )
+LDCT Procedure Codes
+Table 1. LDCT Associated Procedure Codes
+CODE DESCRIPTION
+71271 Computed tomography, thorax, low dose for lung cancer screening, without contrast material(s)
+CT Low Dose for Lung Cancer (LDCT) Screening Summary of Changes
+CT Low Dose for Lung Cancer (LDCT) Screening had the following changes from 2023 to 2024:
+•Added the following to keep in line with current research:
+▪"Definitive treatment" indication
+▪"Nodule seen on initial LDCT" indication
+▪"Prior imaging" indication
+Chest Cancer Surveillance
+Bone Cancer Surveillance
+NCCN Bone Cancer Version 2.2024
+Bone cancer surveillance includes ANY of the following:
+1. Chondrosarcoma surveillance for ANY of the following:
+a. Atypical cartilaginous tumor surveillance with ALL of the following:
+i. Chest imaging every 6 to 12 months for 2 years, then annually as clinically 
+indicated
+ii. Primary site X-rays and/or cross-sectional imaging magnetic resonance 
+imaging (MRI) (with and without contrast) or computed tomography (CT) 
+(with contrast) every 6 to 12 months for 2 years, then annually as clinically 
+indicated
+10
+
+Page 11
+==================================================
+
+b. Low-grade, extracompartmental appendicular tumor, grade I axial tumors or high-
+grade (grade II or III, clear cell or extracompartmental) tumors surveillance with 
+ALL of the following:
+i. Chest imaging every 3 to 6 months, may include CT at least every 6 
+months for 5 years, then annually for at least 10 years, as clinically indica-
+ted
+ii. Primary site X-rays and/or cross-sectional imaging MRI (with and without 
+contrast) or CT (with contrast) as clinically indicated.
+2. Chordoma surveillance with ALL of the following:
+a. Chest imaging every 6 months, with CT included, annually for 5 years, then annu-
+ally thereafter as clinically indicated
+b. Imaging of primary site, timing and modality (eg, MRI ± CT [both with contrast], 
+X-ray) as clinically indicated up to 10 years
+3. Ewing Sarcoma after primary treatment completed and stable/improved disease, surveil-
+lance with ALL of the following:
+a. Chest imaging with X-ray or CT: every 2 to 3 months
+b. Primary site imaging with MRI ± CT (both with contrast) and X-ray, increase inter-
+vals after 24 months and after 5 years, annually as clinically indicated (indefinitely) 
+(*NOTE : Consider PET/CT [head-to-toe] and/or bone scan. )
+4. Giant cell tumor of the bone surveillance with ALL of the following:
+a. Chest imaging every 6 to 12 months for 4 years, then annually thereafter as clini-
+cally indicated
+b. Surgical site imaging as clinically indicated (eg, CT and/or MRI, both with contrast, 
+X-ray)
+5. Osteosarcoma surveillance with primary site and chest imaging (using same imaging that 
+was done for initial work-up) for ANY of the following: (* NOTE : Consider PET/CT [head-
+to-toe] and/or bone scan .)
+a. Image every 3 months for years 1 and 2
+b. Image every 4 months for year 3
+c. Image every 6 months for years 4 and 5
+d. Image annually for year 6 and thereafter, as clinically indicated
+Breast Cancer Surveillance v4.2024
+Breast cancer 07/2024
+11
+
+Page 12
+==================================================
+
+1. Ductal Carcinoma in Situ (DCIS)
+a. DCIS Tis, N0, M0, Encapsulated OR solid papillary carcinoma (SPC)
+i. Workup
+A. Diagnostic bilateral mammogram
+B. Breast MRI as indicated
+ii. Primary treatment DCIS Postsurgical treatment Surveillance/follow-up
+A. First mammogram first mammogram 6–12 months, after breast-
+conservation therapy (category 2B) and annually thereafter
+2. Invasive breast cancer
+a. Localized breast cancer: Invasive, non-inflammatory, non-metastatic (M0)
+i. Workup
+A. Imaging:
+I. Diagnostic bilateral mammogram
+II. Ultrasound as necessary
+III. Breast MRI (optional), with special consideration for mam-
+mographically occult tumors
+ii. Workup prior to preoperative systemic therapy
+A. Clinical stage: c greater than or equal to T2 OR cN+ and M0 OR 
+cT1c, cN0 HER2-positive disease OR cT1c, cN0 TNBC
+I. Additional workup
+1. Axillary assessment with exam
+a. Consider ultrasound
+II. Additional tests to consider as clinically indicated
+1. Chest diagnostic CT ± contrast
+2. Abdominal ± pelvic diagnostic CT with contrast OR 
+MRI with contrast
+3. Bone scan or sodium fluoride PET/CT (category 2B)
+4. FDG PET/CT
+5. Breast MRI (optional), with special consideration for 
+mammographically occult tumors, if NOT previously 
+done
+12
+
+Page 13
+==================================================
+
+III. Operable disease: Breast and axillary evaluation prior to pre-
+operative systemic therapy
+1. Axillary imaging with ultrasound OR MRI (if not pre-
+viously done)
+b. Surveillance/Follow-up
+i. Breast imaging:
+A. Mammography every 12 months, beginning 6 months or more after 
+completion of BCT
+B. Routine imaging of reconstructed breast is not indicated
+c. Recurrent/Stage IV (M1) disease
+i. Workup
+A. Imaging for systemic staging:
+I. Chest diagnostic CT ± contrast
+II. Abdominal ± pelvic diagnostic CT with contrast OR MRI with 
+contrast
+III. Brain MRI with contrast if suspicious CNS symptoms
+IV. Spine MRI with contrast if back pain or symptoms of cord 
+compression
+V. Bone scan OR sodium fluoride PET/CT (category 2B)
+VI. Useful in certain circumstances: FDG-PET/CT (consider FES-
+PET/CT for ER-positive disease)
+VII. X-rays of symptomatic bones and long and weight-bearing 
+bones abnormal on bone scan
+ii. Principles of monitoring metastatic disease
+A. CT chest/abdomen/pelvis with contrast
+I. Baseline prior to new therapy - yes
+II. Chemotherapy - Every 2-4 cycles
+III. Endocrine therapy - Every 2-6 months
+IV. Restaging if concern for progression of disease - yes
+B. Bone scan
+I. Baseline prior to new therapy -yes
+13
+
+Page 14
+==================================================
+
+II. Chemotherapy- Every 4-6 cycles
+III. Endocrine therapy - Every 2-6 months
+IV. Restaging if concern for progression of disease - Yes
+C. PET/CT
+I. Baseline prior to new therapy - as clinically indicated
+II. Chemotherapy – as clinically indicated
+III. Endocrine therapy – as clinically indicated
+IV. Restaging if concern for progression of disease – as clinically 
+indicated
+D. Brain MRI with contrast
+I. Baseline prior to new therapy - as clinically indicated
+II. Chemotherapy – as clinically indicated
+III. Endocrine therapy – as clinically indicated
+IV. Restaging if concern for progression of disease – as clinically 
+indicated
+3. Inflammatory breast cancer (IBC)
+a. Clinical pathologic diagnosis of IBC
+i. Workup- Imaging:
+A. Bilateral diagnostic mammogram, ultrasound as necessary
+B. Chest diagnostic CT ± contrast
+C. Abdomen ± pelvis diagnostic CT with contrast or MRI with contrast
+D. Bone scan or FDG- PET/CT
+E. Breast MRI (optional)
+4. Phyllodes Tumor
+a. Workup
+i. Ultrasound
+ii. Mammogram for patients greater than or equal to 30 years
+b. Phyllodes tumor recurrence
+i. Locally recurrent breast mass following excision of phyllodes tumor
+A. Workup
+14
+
+Page 15
+==================================================
+
+I. Ultrasound
+II. Mammogram
+III. Consider chest imaging (x-ray OR CT, CT contrast optional)
+5. Paget Disease
+a. Workup
+i. Diagnostic bilateral mammogram, ultrasound as necessary
+A. Examination or imaging positive for breast lesion
+I. Core biopsy of breast lesion and full-thickness skin biopsy of 
+involved NAC- Breast negative for cancer and positive NAC 
+Paget
+1. Consider breast MRI and tissue sampling
+B. Examination and imaging negative for breast lesion
+I. Full-thickness skin biopsy of involved NAC
+1. NAC biopsy positive for Paget
+a. Consider breast MRI and tissue sampling
+6. Breast cancer during pregnancy
+a. Workup
+i. If indicated:
+A. Chest x-ray (with abdominal shielding)
+B. Abdominal ultrasound to assess liver metastases
+C. Consider non-contrast MRI of spine if indicated to assess for bone 
+metastases
+Reference: https://www.nccn.org/professionals/physician_gls/pdf/breast.pdf
+Esophageal and Esophagogastric Junction Cancer Surveillance 
+v4.2024
+Esophageal and Esophagogastric Junction Cancers NCCN guidelines 07/2024
+1. Workup
+a. Upper gastrointestinal (GI) endoscopy and biopsy
+b. Chest/abdomen Computed Tomography (CT )with oral and IV contrast
+15
+
+Page 16
+==================================================
+
+c. Pelvis CT with contrast as clinically indicated
+d. Fludeoxyglucose-18-positron emission tomography (FDG-PET)/CT evaluation (skull 
+base to mid-thigh) if no evidence of M1 disease
+e. Endoscopic ultrasound (EUS), if no evidence of M1 unresectable disease
+f. Endoscopic resection (ER) is recommended for the accurate staging of early-stage 
+cancers (T1a or T1b). Early-stage cancers can best be diagnosed by ER
+g. Bronchoscopy, if tumor is at or above the carina with no evidence of M1 disease
+2. Primary treatment for patients who are medically fit with squamous cell carcinoma
+a. Preoperative chemoradiation
+i. Response assessment
+A. FDG-PET/CT
+B. Chest/abdomen CT with oral and IV contrast ( not required if FDG-
+PET/CT is done)
+C. Upper GI endoscopy and biopsy (optional if surgery is planned)
+b. Definitive chemoradiation
+i. Response assessment
+A. FDG-PET/CT
+B. Chest/abdomen CT with oral and IV contrast (not required if FDG-
+PET/CT is done)
+C. Upper GI endoscopy and biopsy
+3. Follow-up/Surveillance for squamous cell carcinoma
+a. Imaging studies as clinically indicated
+b. Upper GI endoscopy and biopsy as clinically indicated
+c. Recurrence
+i. Locoregional recurrence: Prior esophagectomy, no prior chemoradiation
+A. Palliative management, Response assessment
+I. Chest/abdomen CT with contrast
+ii. Locoregional recurrence: Prior chemoradiation, no prior esophagectomy
+A. Palliative management, Response assessment
+I. Chest/abdomen CT with contrast
+16
+
+Page 17
+==================================================
+
+4. Primary treatment for patients who are medically fit with adenocarcinomas
+a. Preoperative chemoradiation (category 1) (preferred)
+i. Response assessment
+A. FDG-PET/CT
+B. Chest/abdomen CT with oral and IV contrast (not required if FDG-
+PET/CT is done)
+C. Upper GI endoscopy and biopsy (optional if surgery is planned)
+b. Definitive chemoradiation or Neoadjuvant or perioperative ICI (immune checkpoint 
+inhibitor) if tumor is MSI-H/dMMR
+i. Response assessment
+A. FDG-PET/CT
+B. Chest/abdomen CT with oral and IV contrast (not required if FDG-
+PET/CT is done)
+C. Upper GI endoscopy and biopsy
+5. Follow-up/Surveillance for adenocarcinomas
+a. Imaging studies as clinically indicated
+b. Upper GI endoscopy and biopsy as clinically indicated
+c. Recurrence
+i. Locoregional recurrence: Prior esophagectomy, no prior chemoradiation
+A. Palliative management, Response assessment
+I. Chest/abdomen CT with contrast
+ii. Locoregional recurrence: Prior chemoradiation, no prior esophagectomy
+A. Palliative management, Response assessment
+I. Chest/abdomen CT with contrast
+6. Principles of surveillance
+a. Tis or T1a with/without BE (Barrett esophagus)
+i. Type of therapy rendered: ER/ablation
+ii. Surveillance recommendations
+A. Once eradication of all neoplasia/high-risk preneoplasia has been 
+achieved, endoscopic surveillance is recommended
+17
+
+Page 18
+==================================================
+
+B. EGD should be performed every 3 months for the first year, then 
+every 6 months for the second year, and then annually indefinitely
+C. Imaging studies as a surveillance tool are not recommended 
+(ESOPH-I)
+b. Tis, T1a, N0
+i. Type of therapy rendered: Esophagectomy
+ii. Surveillance recommendations
+A. Although the goal of the resection would be to resect all areas of 
+Tis or T1a and Barrett esophagus (BE), patients with incompletely 
+resected BE should undergo ablation and then endoscopic surveil-
+lance as above (Tis/T1a ER/ablation). Otherwise, EGD as needed 
+based on symptoms. Imaging studies as a surveillance tool are not 
+recommended.
+c. T1b (N0 on EUS)
+i. Type of therapy rendered: ER/ablation
+ii. Surveillance recommendations
+A. Once eradication of all cancer/HGD has been achieved, endoscopic 
+surveillance is recommended
+B. EGD every 3 months for the first year, every 4–6 months for the 
+second year, then annually indefinitely. EUS may be considered in 
+conjunction with EGD. Further therapy will be determined if either 
+BE, cancer, or malignant lymphadenopathy is diagnosed at surveil-
+lance
+C. Imaging (CT chest/abdomen with oral and IV contrast unless con-
+traindicated) may be considered every 6 months for the first 2 years 
+and annually for up to 5 years
+d. T1b or greater, Any N or T1a N+
+i. Type of therapy rendered: Esophagectomy ± adjuvant therapy
+ii. Surveillance recommendations
+A. Imaging (CT chest/abdomen with oral and IV contrast unless con-
+traindicated) should be considered every 6 months for the first 2 
+years and annually for up to 5 years
+B. EGD as needed based on symptoms and radiographic findings
+18
+
+Page 19
+==================================================
+
+C. Although the goal of the resection would be to resect all areas of 
+T1b and BE, patients with incompletely resected BE should undergo 
+ablation and EGD should be performed every 3 months for the first 
+year, then every 6 months for the second year, and then annually 
+indefinitely
+e. Any T, Any N
+i. Type of therapy rendered: Neoadjuvant chemotherapy or Chemoradiothera-
+py followed by esophagectomy (± adjuvant treatment)
+ii. Surveillance recommendations
+A. Imaging studies (CT chest/abdomen with oral and IV contrast unless 
+contraindicated) should be considered every 6 months for up to 2 
+years and then annually for up to 5 years
+B. EGD as clinically indicated
+f. Pretreatment Tumor Classification: T1b–T4, N0–N+,T4b
+i. Type of therapy rendered: Definitive chemoradiation (without esophagecto-
+my)
+ii. Surveillance recommendations
+A. Imaging studies (CT chest/abdomen with oral and IV contrast unless 
+contraindicated) should be considered every 3–6 months for the 2 
+years and annually for up to 5 years
+B. EGD every 3–6 months for the first 2 years then annually for 3 
+more years
+Reference: https://www.nccn.org/professionals/physician_gls/pdf/esophageal.pdf
+Mesothelioma: Pleural Surveillance
+NCCN Mesothelioma: Pleural Version 1.2024
+Mesothelioma: Pleural: No imaging surveillance suggested
+Non-Small Cell Lung Cancer Surveillance v7.2024
+Non-Small Cell Lung Cancer Diagnostic Imaging Guidelines 06/2024
+1. Incidental finding of nodule suspicious for lung cancer
+a. Risk assessment
+i. Radiologic factors:
+19
+
+Page 20
+==================================================
+
+A. Fluorodeoxyglucose (FDG) avidity on FDG-Positron Emission Tomog-
+raphy (PET)/Computed Tomography (CT) imaging
+I. Incidental finding: Solid nodules(s) on chest CT
+1. Low risk: Follow-up
+a. Less than 6 mm, No routine follow-up
+b. 6–8 mm, CT at 6–12 months, Stable
+i. Consider CT at 18–24 months
+c. Greater than 8 mm
+i. Consider CT at 3 months, FDG-
+PET/CT, or biopsy
+2. High risk: Follow-up
+a. Less than 6 mm, CT at 12 months (optional), 
+Stable
+i. No routine follow-up
+b. 6-8 mm, CT at 6-12 months, Stable
+i. Repeat CT at 18–24 months
+c. Greater than 8 mm
+i. Consider CT at 3 months, FDG-
+PET/CT, or biopsy
+II. Incidental finding: subsolid nodule(s) on chest CT
+1. Solitary pure ground-glass nodules: Follow-up
+a. Less than 6 mm
+i. No routine follow-up
+b. Greater than OR equal to 6 mm
+i. CT at 6–12 months to confirm no 
+growth or development of a solid 
+component, then CT every 2 years 
+until 5 years
+2. Solitary part-solid nodules: Follow-up
+a. Less than 6 mm, No routine follow-up
+b. Greater than OR equal to 6 mm
+20
+
+Page 21
+==================================================
+
+i. CT at 3–6 months to confirm no 
+growth or change in solid component, 
+then annual CT for 5 years
+ii. If solid component Greater than OR 
+equal to 6 mm, consider PET/CT or bi-
+opsy
+3. Multiple subsolid nodules: Follow-up
+a. Less than 6 mm, CT at 3–6 months
+i. If stable, consider CT at 2 and 4 years
+b. Greater than OR equal to 6 mm
+i. CT at 3–6 months
+ii. Subsequent management based on 
+most suspicious nodule(s)
+2. Lung nodules in asymptomatic, high-risk patients detected during lung cancer screening 
+with Low Dose Computed Tomography (LDCT)
+3. Pathologic diagnosis of NSCLC
+a. Initial Evaluation
+i. CT chest and upper abdomen with contrast, including adrenals
+b. Clinical assessment
+i. Stage IA (peripheral T1abc, N0), Pretreatment evaluation
+A. FDG-PET/CT scan (if not previously done)
+ii. Stage IB (peripheral T2a, N0), Stage I (central T1abc–T2a, N0), Stage II 
+(T1abc–2ab, N1; T2b, N0), Stage IIB (T3, N0), Stage IIIA (T3, N1)
+A. Pretreatment evaluation
+I. FDG-PET/CT scan (if not previously done)
+II. Brain MRI with contrast (Stage II, IIIA) (Stage IB [optional])
+iii. Stage IIB (T3 invasion, N0), Stage IIIA (T4 extension, N0–1; T3, N1; T4, 
+N0–1)
+A. Pretreatment evaluation
+I. Brain MRI with contrast
+21
+
+Page 22
+==================================================
+
+II. MRI with contrast of spine + thoracic inlet for superior sulcus 
+lesions abutting the spine, subclavian vessels, or brachial 
+plexus
+III. FDG-PET/CT scan (if not previously done)
+iv. Stage IIIA (T1–2, N2), Stage IIIB (T3, N2)
+A. Pretreatment evaluation
+I. FDG-PET/CT scan (if not previously done)
+II. Brain MRI with contrast
+v. Separate pulmonary nodule(s) (Stage IIB, IIIA, IV)
+A. Pretreatment evaluation
+I. Brain MRI with contrast
+II. FDG-PET/CT scan (if not previously done)
+B. Clinical presentation
+I. Suspected multiple lung cancers (based on the presence of 
+biopsy-proven synchronous lesions or history of lung cancer)
+1. Chest CT with contrast
+2. FDG-PET/CT scan (if not previously done)
+3. Brain MRI with contrast
+vi. Stage IIIB (T1–2, N3), Stage IIIC (T3, N3)
+A. Pretreatment evaluation
+I. FDG-PET/CT scan (if not previously done)
+II. Brain MRI with contrast
+vii. Stage IIIB (T4, N2), Stage IIIC (T4, N3)
+A. Pretreatment evaluation
+I. FDG-PET/CT scan (if not previously done)
+II. Brain MRI with contrast
+viii. Stage IVA, M1a: pleural or pericardial effusion
+A. Pretreatment evaluation
+I. FDG-PET/CT scan (if not previously done)
+II. Brain MRI with contrast
+22
+
+Page 23
+==================================================
+
+ix. Stage IVA, M1b
+A. Pretreatment evaluation
+I. If not previously done
+1. Brain MRI with contrast
+2. FDG-PET/CT scan
+c. Surveillance after completion of definitive therapy
+i. No evidence of clinical/radiographic disease
+A. Stage I–II (primary treatment included surgery ± chemotherapy)
+I. History and Physical (H&P) and chest CT ± contrast every 
+6 months for 2–3 years, then H&P and a low-dose non–con-
+trast-enhanced chest CT annually
+B. Stage I–II (primary treatment included RT) or stage III or stage IV 
+(oligometastatic with all sites treated with definitive intent)
+I. H&P and chest CT ± contrast every 3–6 months for 3 years, 
+then H&P and chest CT ± contrast every 6 months for 
+2 years, then H&P and a low-dose non–contrast-enhanced 
+chest CT annually
+1. Residual or new radiographic abnormalities may re-
+quire more frequent imaging
+C. FDG-PET/CT or brain MRI is not routinely indicated
+ii. Recurrence
+A. FDG-PET/CT
+B. Brain MRI with contrast
+iii. Recurrence Locoregional recurrence or symptomatic local disease, Therapy 
+for recurrence and metastasis
+A. Chest CT with contrast
+B. Brain MRI with contrast
+C. FDG-PET/CT
+Reference: https://www.nccn.org/professionals/physician_gls/pdf/nscl.pdf
+23
+
+Page 24
+==================================================
+
+Occult Primary Cancer Surveillance
+NCCN Occult Primary Cancer Version 2.2024
+Occult primary cancer surveillance imaging for long-term surveillance includes diagnostic tests 
+based on symptomatology
+Small-Cell Lung Cancer Surveillance v3.2024
+Small cell lung cancer Diagnostic imaging guidelines 06/2024
+1. Diagnosis: Small cell lung cancer (SCLC) or combined SCLC/non-small cell lung cancer 
+(NSCLC) on biopsy or cytology of primary or metastatic site
+a. Initial Evaluation
+i. Chest/abdomen/pelvis (C/A/P) CT with contrast
+ii. Brain MRI (preferred) or CT with contrast
+iii. FDG-PET/CT scan (skull base to mid-thigh), if needed to clarify extent of 
+disease
+b. Limited stage
+i. Additional workup
+A. Bone imaging (radiographs or MRI) as appropriate if FDG-PET/CT 
+equivocal (consider biopsy if bone imaging is equivocal)
+c. Extensive stage
+i. Primary treatment
+1. Response Assessment
+a. During systemic therapy
+i. Response assessment by chest/abdomen/pelvis CT 
+with contrast is recommended after every 2-3 cycles 
+of systemic therapy and again at completion of ther-
+apy
+b. Brain MRI (preferred) or CT with contrast is recommended 
+to be repeated after every 2 cycles of systemic therapy until 
+brain RT is initiated or systemic therapy is completed, which-
+ever is first (SCL-6). If brain metastases progress while on 
+systemic therapy, it is recommended that brain RT is initi-
+ated before completion of systemic therapy.
+d. Response assessment following primary treatment
+24
+
+Page 25
+==================================================
+
+i. C/A/P CT with contrast
+ii. Brain MRI (preferred) or CT with contrast
+e. Adjuvant RT
+i. Complete response or partial response
+1. Limited stage
+a. Prophylactic cranial irradiation (PCI) or
+b. Consider MRI brain surveillance
+2. Extensive stage
+a. MRI brain surveillance
+i. Consider PCI
+ii. Consider thoracic RT
+f. Primary treatment, Adjuvant RT Surveillance
+i. Complete response or partial response, stable disease
+A. Surveillance CT
+B. Brain MRI (preferred) or CT with contrast every 3–4 months during 
+year 1, then every 6 months afterwards, then as clinically indicated 
+(regardless of PCI status)
+C. FDG-PET/CT is not recommended for routine follow-up unless con-
+trast CT C/A/P is contraindicated
+g. Subsequent systemic therapy
+i. Response assessment by C/A/P CT with contrast is recommended after ev-
+ery 2–3 cycles of systemic therapy
+Reference: https://www.nccn.org/professionals/physician_gls/pdf/nscl.pdf
+Soft Tissue Sarcoma Surveillance
+NCCN Soft Tissue Sarcoma Version 1.2024
+Soft tissue sarcoma surveillance includes ANY of the following: * NOTE : Contrasted imaging is 
+preferred; for long term surveillance to minimize radiation exposure, X-rays or MRI may be sub-
+stituted.
+1. Desmoid tumor (aggressive fibromatosis) imaging surveillance includes ANY of the follow-
+ing:
+a. CT or MRI every 3 to 6 months for 2 to 3 years, then every 6 to 12 months 
+thereafter
+25
+
+Page 26
+==================================================
+
+b. Ultrasound may be considered for select locations (eg, abdominal wall) for long-
+term follow-up
+2. Retroperitoneal/intra-abdominal, after resection imaging surveillance includes CT or MRI 
+(consider PET/CT) every 3 to 6 months for 2 to 3 years, then every 6 months for the next 
+2 years, then annually.
+3. Stage IA/IB tumor surveillance includes ALL of the following:
+a. Chest imaging with CT (+contrast) or MRI (± contrast) as clinically indicated
+b. Magnetic resonance imaging (MRI) at baseline and periodically (frequency based 
+on estimated recurrence)
+4. Stage II/III resectable with acceptable functional outcomes surveillance includes ANY of 
+the following:
+a. Chest imaging with CT (+contrast) or MRI (± contrast) at end of treatment and pe-
+riodic imaging of primary site (based on estimated risk of locoregional recurrence)
+b. Chest imaging and imaging of primary site with CT (+contrast) or MRI (± contrast) 
+as clinically indicated
+5. Stage II, III or select stage IV (any T, N1, M0), resectable with adverse functional out-
+comes OR unresectable primary disease surveillance imaging includes ANY of the follow-
+ing:
+a. Baseline and periodic imaging of primary site as clinically indicated
+b. Chest imaging with CT (+contrast) or MRI (± contrast) as clinically indicated
+6. Stage IV synchronous disease imaging surveillance includes ANY of the following:
+a. Chest and other known metastatic sites imaging with CT (+contrast) or MRI (± 
+contrast) as clinically indicated
+b. MRI (± contrast) (preferred) and/or CT (+ contrast) at baseline and periodically 
+(frequency based on estimated recurrence)
+CT Chest Procedure Codes
+Table 1. CT Chest Associated Procedure Codes
+CODE DESCRIPTION
+71250 Computed tomography, thorax, diagnostic; without contrast material
+71260 Computed tomography, thorax, diagnostic; with contrast material(s)
+71270 Computed tomography, thorax, diagnostic; without contrast material, followed by contrast material(s) and fur-
+ther sections
+26
+
+Page 27
+==================================================
+
+CODE DESCRIPTION
+71271 Computed tomography, thorax, low dose for lung cancer screening, without contrast material(s)
+CT Chest Summary of Changes
+CT Chest guideline had the following version changes from 2023 to 2024:
+•Added the following to keep in line with current evidence:
+▪"Active treatment" under "Cancer is known"
+▪"Chest wall" indication
+▪"Chest X-ray is completed" under "Prior imaging demonstrates"
+▪"Collagen vascular disease" under "Interstitial lung disease"
+▪"Gestational trophoblastic disease"
+▪"Initial detection" under "Thoracic aneurysm"
+▪"Multiple endocrine neoplasia 1"
+▪"Nodules are detected on non-chest CT" under "Pulmonary nodules"
+▪"Nodules are detected on X-ray" under "Pulmonary nodules"
+▪"Pulmonary hypertension"
+▪"Weight loss is unintentional"
+•Removed the following as current evidence does not support the indication:
+▪"Age is under 35 years"
+▪"Chest X-ray is non-diagnostic or indeterminate" under "Prior imaging demonstrates"
+▪"Clinical status includes" under "Cancer is known"
+▪"Covid is suspected" under Coronavirus disease"
+▪"Failure to respond" under "Cough, chronic"
+▪"History of primary cancer" under "Pulmonary nodules"
+▪"Immunosuppression" under "Pulmonary nodules"
+▪"Malignant pleural effussion" under "Cancer is known"
+▪"Mediastinal or hilar mass"
+▪"Nodule less than 6 mm
+▪"Pneumonia is known"
+27
+
+Page 28
+==================================================
+
+▪"Superior vena cava syndrome" under "Cancer is known"
+▪"Treatment evaluation" under "Cancer is known"
+▪"Tracheal/bronchial lesion"
+CT Chest Definitions
+Abscess  is a swollen area within body tissue, containing an accumulation of pus.
+American College of Radiology (ACR) Lung-RADS® Assessment Categories
+Table 1. Lung-RADS® Assessment Categories Version 2022 [ 3]
+CATE-
+GORY 
+DE-
+SCRIP-
+TORLung-
+RADS 
+SCOREFINDINGS MANAGE-
+MENTMALIG-
+NANCY 
+RISKPOPU-
+LATION 
+PREVA-
+LENCE 
+(Est.)
+Incom-
+plete0 •1. Prior CT Chest being lo-
+cated for comparison
+•2. Part/All of lungs cannot 
+be evaluated
+•3. Findings suggestive of 
+an inflammatory or infec-
+tious process•1A. Compar-
+ison to prior 
+chest CT
+•2A. Addi-
+tional lung 
+cancer 
+screening CT 
+imaging 
+needed
+•3A. LDCT 
+follow-up in 
+1 to 3 
+monthsN/A 1%
+Negative 1 •NO lung nodules
+•Nodule(s) with benign fea-
+tures such as complete, 
+central, popcorn or concen-
+tric ring calcifications OR 
+fat-containing.Screening with 
+LDCT in 12 
+monthsless than 1% 39%
+28
+
+Page 29
+==================================================
+
+CATE-
+GORY 
+DE-
+SCRIP-
+TORLung-
+RADS 
+SCOREFINDINGS MANAGE-
+MENTMALIG-
+NANCY 
+RISKPOPU-
+LATION 
+PREVA-
+LENCE 
+(Est.)
+Benign
+Based on 
+imaging 
+features or 
+indolent be-
+havior2 •Airway nodule(s) : sub-
+segmental at baseline, new 
+or stable
+•Category 3 lesion  is sta-
+ble or decreased in size at 
+6 month follow-up
+•Category 4B lesion  pro-
+ven to be benign in etiolo-
+gy following appropriate di-
+agnostic workup
+•Juxtapoleural nodule(s) : 
+less than 10 mm (524 
+mm3) mean diameter at 
+baseline or new AND Sol-
+id; smooth margins; and 
+oval, lentiform, or triangu-
+lar shape
+•Non solid nodule(s) 
+(GGN) : Baseline less than 
+30 mm (less than 14137 
+mm3) OR stable or slow 
+growing greater than or 
+equal to 30 mm (greater 
+than or equal to 14137 
+mm3)
+•Part solid nodule(s) : 
+baseline less than 6 mm 
+(less than 113 mm3)
+•Solid nodule(s) : baseline 
+less than 6 mm (less than 
+113 mm3) OR new less 
+than 4 mm (less than 34 
+mm3)Screening with 
+LDCT in 12 
+monthsless than 1% 45%
+29
+
+Page 30
+==================================================
+
+CATE-
+GORY 
+DE-
+SCRIP-
+TORLung-
+RADS 
+SCOREFINDINGS MANAGE-
+MENTMALIG-
+NANCY 
+RISKPOPU-
+LATION 
+PREVA-
+LENCE 
+(Est.)
+Probably 
+Benign
+Based on 
+imaging 
+features or 
+behavior3 •Atypical pulmonary cyst : 
+Growing cyst component 
+(mean diameter) of a thick-
+walled cyst
+•Category 4A lesion  is sta-
+ble or decreased in size at 
+3-month follow-up CT (ex-
+cluding airway nodules)
+•Non solid nodule(s) 
+(GGN) ; Baseline or new 
+greater than or equal to 30 
+mm (greater than or equal 
+to 14137 mm3)
+•Part solid nodule(s) ; 
+Baseline greater than or 
+equal to 6 mm total mean 
+diameter (greater than or 
+equal to 113 mm3) with 
+solid component less than 
+6 mm (less than 113 mm3) 
+OR new less than 6 mm 
+total mean diameter (less 
+than 113 mm3)
+•Solid nodule(s) : baseline 
+greater or equal to 6 mm 
+to less than 8 mm (greater 
+than or equal to 113 mm3 
+to less than 268 mm3) OR 
+new 4 mm to less than 6 
+mm (34 3 mm to less than 
+113 mm3)6 month LDCT 1-2% 9%
+30
+
+Page 31
+==================================================
+
+CATE-
+GORY 
+DE-
+SCRIP-
+TORLung-
+RADS 
+SCOREFINDINGS MANAGE-
+MENTMALIG-
+NANCY 
+RISKPOPU-
+LATION 
+PREVA-
+LENCE 
+(Est.)
+Suspicious 4A •Airway nodule : segmen-
+tal or more proximal is sta-
+ble or growing
+•Atypical pulmonary cyst : 
+Thick-walled OR multilocu-
+lar cyst at baseline OR Thin 
+or thick-walled cyst that 
+becomes multilocular
+•Part solid nodule(s) : 
+Baseline greater than or 
+equal to 6 mm (greater 
+than or equal to 113 mm3) 
+total mean diameter with 
+solid component greater 
+than or equal to 6 mm to 
+less than 8 mm (greater 
+than or equal to 113 mm3 
+to less than 268 mm3 ) OR 
+new or growing less than 
+4 mm (less than 34 mm3) 
+solid component
+•Solid nodule(s) : baseline 
+greater than or equal to 8 
+mm to less than 15 mm 
+(greater than or equal to 
+268 mm3 to less than 1767 
+mm3) OR growing less 
+than 8 mm (less than 268 
+mm3) OR new 6 mm to 
+less than 8 mm (113 mm3 
+to less than 268 mm3)•3 month 
+LDCT
+•PET/CT may 
+be consid-
+ered if there 
+is a more 
+than or 
+equal to 8 
+mm (more 
+than or 
+equal to 268 
+mm3) solid 
+nodule or 
+solid compo-
+nent5-15% 4%
+31
+
+Page 32
+==================================================
+
+CATE-
+GORY 
+DE-
+SCRIP-
+TORLung-
+RADS 
+SCOREFINDINGS MANAGE-
+MENTMALIG-
+NANCY 
+RISKPOPU-
+LATION 
+PREVA-
+LENCE 
+(Est.)
+Very Sus-
+picious4B •Airway nodule : segmen-
+tal or more proximal is sta-
+ble or growing
+•Atypical pulmonary 
+cyst: Thick-walled cyst 
+with growing wall thick-
+ness/nodularity OR Grow-
+ing multilocular cyst (mean 
+diameter) OR Multilocular 
+cyst with increased locu-
+lation or new/increased 
+opacity (nodular,ground 
+glass, or consolidation)
+•Part solid nodule(s) 
+baseline with a solid com-
+ponent greater than or 
+equal to 8 mm (greater 
+than or equal to 268 mm3) 
+OR new or growing great-
+er than or equal to 4 mm 
+(greater than or equal to 
+34 mm3) solid component
+•Slow growing solid or 
+part solid nodule : dem-
+onstrates growth over mul-
+tiplescreening exams
+•Solid nodule(s)  Baseline 
+greater than or equal to 15 
+mm (greater than or equal 
+to 1767 mm3) OR new or 
+growing and greater than 
+or equal to 8 mm (greater 
+than or equal to 268 mm3)•Diagnostic 
+chest CT 
+with or with-
+out contrast
+•PET/CT may 
+be consid-
+ered if there 
+is a less 
+than or 
+equal to 8 
+mm (less 
+than or 
+equal to 268 
+mm3) solid 
+nodule or 
+solid compo-
+nent
+•Tissue sam-
+pling
+•Referral for 
+furtrher clin-
+ical evalua-
+tion
+•Management 
+depends on 
+clinical eval-
+uation, pa-
+tient prefer-
+ence, and 
+the probabil-
+ity of malig-
+nancygreater than 
+15%2%
+See above 4X Category 3 or 4 nodules  with 
+additional features or imaging 
+findings that increases the suspi-
+cion of malignancysee above see above Less than 
+1%
+Significant 
+or Poten-
+tially Sig-
+nificantS Modifier : May add to catego-
+ry 0-4 for clinically significant 
+or potentially clinicallysignificant 
+findings unrelated to lung cancerAs appropriate to 
+the specific find-
+ingN/A 10%
+32
+
+Page 33
+==================================================
+
+Aneurysm  refers to weakness in an artery wall, allowing it to abnormally balloon out or widen.
+Angiotensin-converting enzyme (ACE) inhibitors  are medicines that help relax the veins and 
+arteries to lower blood pressure.
+Aortic root  is where the aorta and the heart connect.
+Asthma  is a chronic lung disorder that is marked by recurring episodes of airway obstruction (as 
+from bronchospasm) manifested by labored breathing accompanied especially by wheezing and 
+coughing and by a sense of constriction in the chest, and that is triggered by hyperreactivity to 
+various stimuli (such as allergens or rapid change in air temperature).
+Bronchiectasis  is a chronic condition where the walls of the bronchi are thickened from inflam-
+mation and infection.
+Collagen vascular disease  is a group of autoimmune conditions that cause chronic inflammation 
+in connective tissues..
+Computed tomography (CT)  refers to a computerized X-ray imaging procedure in which a 
+three-dimensional image of a body structure is revealed through a series of cross-sectional im-
+ages or "slices."
+Computed tomography angiography (CTA)  is a medical test that combines a computed to-
+mography (CT) scan with an injection of a special dye to produce pictures of blood vessels and 
+tissues in a part of the body.
+Congenital  is a condition or trait present from birth.
+COVID-19  is a mild to severe respiratory illness that is caused by a coronavirus, is transmitted 
+chiefly by contact with infectious material (such as respiratory droplets), and is characterized 
+especially by fever, cough, loss of taste or smell, and shortness of breath and may progress to 
+pneumonia and respiratory failure.
+Dissection is the abnormal and usually abrupt formation of a tear or separation of the layers 
+inside the wall of an artery.
+Echocardiogram (ECHO)  is a test that uses high frequency sound waves (ultrasound) to make 
+pictures of the heart. The test is also called echocardiography or diagnostic cardiac ultrasound. An 
+echo uses sound waves to create pictures of the heart’s chambers, valves, walls and the blood 
+vessels (aorta, arteries, veins). A probe called a transducer is passed over the chest. The probe 
+produces sound waves that bounce off the heart and “echo” back to the probe. These waves are 
+changed into pictures viewed on a video monitor.
+Empyema  is a collection of pus in the space between the lung and the inner surface of the chest 
+wall (pleural space).
+Endoscopy  is a procedure that uses an endoscope to examine the inside of the body. An endo-
+scope is a thin, tube-like instrument with a light and a lens for viewing. It may also have a tool to 
+remove tissue to be checked under a microscope for signs of disease.
+Fibrosis  is thickening or scarring of the tissue.
+Fleischner Society Guidelines for Management of Incidental Pulmonary Nodules  Detected 
+on CT Images: is a characterization tool to support lung cancer diagnosis and treatment planning. 
+33
+
+Page 34
+==================================================
+
+The recommendations refer to incidentally encountered lung nodules detected at CT in adult pa-
+tients that are age 35 years or older. These are not intended for routine screening, when there is 
+metastasis risk with known primary cancer, or when there is risk of infection due to immunocom-
+promise.2
+Table 2. Solid Nodules, Fleischner Society Guidelines for Incidentally Detected 
+Pulmonary Nodules
+NODULE 
+SIZE/
+TYPESIZE 
+smal
+ler 
+than 
+6 
+mm 
+(100 
+mm3
+)SIZE 6 mm 
+(100 mm3) to 8 
+mm (250 mm3)SIZE larger 
+than 8 mm 
+(250 mm3)COMMENTS
+Single
+•Low risk NO 
+routine 
+follow-
+upCT at 6 to 12 months, 
+then consider CT at 18 
+to 24 monthsConsider CT at 3 
+months, PET/CT or 
+tissue samplingNodules smaller than 6 mm do NOT 
+require routine follow-up in low-risk 
+situations (recommendation 1A)
+•High 
+riskOption-
+al CT at 
+12 
+monthsCT at 6 to 12 months, 
+then consider CT at 18 
+to 24 monthsConsider CT at 3 
+months, PET/CT, or 
+tissue samplingCertain high risk individuals with sus-
+picious nodule morphology, upper lobe 
+location (or both), may be appropriate 
+for 12 month follow-up (Recommen-
+dation 1A)
+Multiple
+•Low risk NO 
+routine 
+follow-
+upCT at 3 to 6 months, 
+then consider CT at 18 
+to 24 monthsCT at 3 to 6 months 
+then consider CT at 
+18 to 24 monthsMost suspicious nodule should be 
+used to guide management. Follow-up 
+intervals vary by this nodule's risk and 
+size. (recommendation 2A)
+•High 
+riskOption-
+al CT at 
+12 
+monthsCT at 3 to 6 months, 
+then consider CT at 18 
+to 24 monthsCT at 3 to 6 months 
+then consider CT at 
+18 to 24 monthsMost suspicious nodule should be 
+used to guide management. Follow-up 
+intervals vary by this nodule's risk and 
+size. (recommendation 2A)
+2MacMahon H, Naidich DP, Goo JM, Lee KS, Leung ANC, Mayo JR, Mehta AC, Ohno Y, Powell CA, Prokop M, Rubin GD, 
+Schaefer-Prokop CM, Travis WD, Van Schil PE, Bankier AA. Guidelines for Management of Incidental Pulmonary Nodules 
+Detected on CT Images: From the Fleischner Society 2017. Radiology. 2017 Jul;284(1):228-243.
+34
+
+Page 35
+==================================================
+
+Table 3. Subsolid Nodules, Fleischner Society Guidelines for Incidentally Detected 
+Pulmonary Nodules
+NODULE 
+SIZE/TYPESIZE small-
+er than 6 
+mm (100 
+mm3)SIZE larger than 6 
+mm (100 mm3)COMMENTS
+Single
+•Ground 
+glassNO routine fol-
+low-upCT at 6 to 12 months to 
+confirm persistence then 
+CT every 2 years until year 
+5Certain suspicious nodules smaller than 6 mm 
+consider follow-up at 2 years and 4 years. 
+If solid component develops or growth occurs 
+consider resection (Recommendation 3A and 
+4A)
+•Partly solid NO routine fol-
+low-upCT at 3 to 6 months to 
+confirm persistence, if un-
+changed lesion with part 
+solid area staying less than 
+6 mm an annual CT for 5 
+yearsPartly solid nodules are NOT defined until they 
+are 6 mm or larger. Nodules less than 6 mm 
+usually do NOT require follow-up. Persistent 
+partly solid nodules with solid part 6 mm or 
+larger should be considered as 'highly suspi-
+cious." (Recommendation 4A to 4 C)
+Multiple CT at 3-6 months; 
+if lesion is stable, 
+consider CT at 2 
+years and 4 yearsCT at 3 to 6 months, most 
+suspicious nodule guides 
+subsequent managementMultiple ground glass nodules less than 6 mm 
+are usually benign, but consider follow-up at 2 
+years and 4 years in select individuals at high 
+risk (Recommendation 5A)
+Gastroesophageal reflux disease (GERD)  s a common condition in which the stomach con-
+tents move up into the esophagus. Reflux becomes a disease when it causes frequent or severe 
+symptoms or injury. Reflux may damage the esophagus, pharynx or respiratory tract.
+Gestational trophoblastic cancer  is the name given to a group of tumors that form during 
+abnormal pregnancies.
+Granulomatosis  is a chronic condition marked by the formation of numerous masses or nodules 
+of chronically inflamed tissue with granulations that are usually associated with an infectious 
+process.
+Hemoptysis  is the expectoration of blood from some part of the respiratory tract.
+Hilar  is relating to, affecting, or located near a hilum. A hilum is a wedge-shaped area in the 
+middle of each lung. The hilar region is where the bronchi, arteries, veins, and nerves enter and 
+exit the lungs.
+Human chorionic gonadotropin (hCG)  is a chemical created by trophoblast tissue, tissue typi-
+cally found in early embryos and which will eventually be part of the placenta. Measuring hCG 
+levels can be helpful in identifying a normal pregnancy, pathologic pregnancy, and can also be 
+useful following an aborted pregnancy.
+Immunosuppression  refers to stopping the bodily response to an antigen that occurs when 
+lymphocytes identify the antigenic molecule as foreign, then induce the formation of antibodies 
+and lymphocytes capable of reacting, rendering it harmless.
+35
+
+Page 36
+==================================================
+
+Indeterminate  findings are inconclusive or insufficient for treatment planning.
+Interstitial lung disease  is a large group of disorders, most of which cause progressive scarring 
+of lung tissue.
+Low dose computed tomography (LDCT)  refers to a computerized X-ray imaging procedure 
+in which a three-dimensional image of a body structure is revealed through a series of cross-sec-
+tional images or "slices" that uses 1/5 the radiation of a conventional CT. The scan uses a lower 
+dose of radiation because it is designed to evaluate nodules in low-density lung tissue but is less 
+effective in evaluating bones, organs or other tissues.
+Lymphadenopathy  refers to the swelling of lymph nodes which can be secondary to bacterial, 
+viral, or fungal infections, autoimmune disease, and malignancy.
+Marfan syndrome  is a disorder of connective tissue inherited as a dominant trait, characterized 
+by abnormal elongation of the long bones and often with ocular and circulatory defects.
+Mediastinum  is the area in the middle of the chest that separates the lungs.
+Metastasis  is the spread of a disease-producing agency (such as cancer cells) from the initial or 
+primary site of disease to another part of the body.
+Multiple endocrine neoplasia type 1 (MEN1)  is a rare endocrine tumor syndrome with high 
+penetrance. This syndrome is also known as Wermer syndrome. It primarily causes neoplasia of 
+the parathyroid glands, the anterior pituitary gland, and the neuroendocrine tissue of gastro-en-
+tero-pancreatic organ systems.
+Myasthenia gravis  is a disease that is characterized by progressive weakness and exhaustibility 
+of voluntary muscles without atrophy and is caused by an autoimmune attack on muscle cell 
+receptors which normally bind to acetylcholine released at nerve endings.
+Non-diagnostic  is a result that does not lead to a confirmed diagnosis.
+Non-small cell lung cancer  is a group of lung cancers named for the kinds of cells found in the 
+cancer and how the cells look under a microscope. The three main types of non-small cell lung 
+cancer are adenocarcinoma (most common), squamous cell carcinoma, and large cell carcinoma. 
+Non-small cell lung cancer is the most common of the two main types of lung cancer (non-small 
+cell lung cancer and small cell lung cancer).
+Oxygen saturation  is a measurement of how much oxygen is bound to hemoglobin in the 
+blood. It's also a measure of how well the lungs are working.
+Parenchymal  the essential and distinctive tissue of an organ or an abnormal growth as distin-
+guished from its supportive framework.
+Pectus carinatum (PC)  is a chest wall deformity that causes the breastbone and ribs to push 
+outward. It's also known as "pigeon chest". PC occurs when the cartilage between the ribs and 
+sternum overgrows, causing the middle of the chest to stick out. It's most common in adolescent 
+males, and 90% of cases are diagnosed after children are 11 years old.
+Pectus excavatum  is a medical term that describes a congenital chest wall deformity. It is 
+caused by an abnormal growth of the cartilage that connects the ribs to the breastbone. This 
+36
+
+Page 37
+==================================================
+
+causes the ribs and breastbone to grow inward, forming a dent in the chest. The result is a 
+caved-in or sunken appearance in the chest.
+Pediatric approximate ages  are defined by the US Department of Health (USDH), the Food and 
+Drug Administration (FDA), and the American Academy of Pediatrics (AAP) as the following:
+•Infancy, between birth and 2 years of age
+•Childhood, from 2 to 12 years of age
+•Adolescence, from 12 to 21 years of age, further defined by the AAP into:
+1. Early (ages 11–14 years)
+2. Middle (ages 15–17 years),
+3. Late (ages 18–21 years)
+4. Older ages may be appropriate for children with special healthcare needs.
+Pleural effusion  is an exudation of fluid from the blood or lymph into a pleural cavity.
+Pneumothorax  is a condition in which air or other gas is present in the pleural cavity and which 
+occurs spontaneously as a result of disease or injury of lung tissue, rupture of air-filled pulmonary 
+cysts, or puncture of the chest wall or is induced as a therapeutic measure to collapse the lung.
+Polyangiitis  is the inflammation of multiple types of vessels, such as small arteries and veins.
+Pulmonary Function Test (PFT)  is a noninvasive test that shows how well the lungs are work-
+ing. The tests measure lung volume, capacity, rates of flow, and gas exchange.
+Pulmonary hypertension  describes when the pressure in the blood vessels leading from the 
+heart to the lungs is too high.
+Recurrence  is a new occurrence of something that happened or appeared before.
+Scoliosis  is a sideways curvature of the spine that most often is diagnosed in adolescents.
+Screening  does not diagnose the illness. The goal is early detection and lifestyle changes or 
+surveillance, to reduce the risk of disease, or to detect it early enough to treat it most effectively.
+Staging  in cancer is the process of determining how much cancer is within the body (tumor size) 
+and if it has metastasized (spread).
+Surveillance  in cancer is the ongoing, timely and systematic collection and analysis of informa-
+tion on new cancer cases, extent of disease, screening tests, treatment, survival and cancer 
+deaths.
+Thymoma  is a tumor of the thymous, an organ that is of the lymphatic system and is located in 
+the chest, behind the chest bone.
+Tuberculosis  (TB) is a potentially serious infectious disease that mainly affects the lungs. The 
+bacteria that cause tuberculosis are spread from person to person through tiny droplets released 
+into the air via coughs and sneezes.
+37
+
+Page 38
+==================================================
+
+Wegener's Granulomatosis  is an uncommon disease of unknown cause characterized by inflam-
+mation of small blood vessels and granuloma formation, especially in the upper and lower respira-
+tory tracts and kidneys, that typically has an onset during the ages of 40 to 65 years old.
+CT Chest References
+[1] Ackman, J.B., Chung, J.H., . . . Kanne, J.P. (2021) . ACR Appropriateness Criteria Imaging of 
+Mediastinal Masses.  Journal of the American College of Radiology , 18(5S), S37-S51.
+[2] American College of Radiology. (2023) . ACR Manual on Contrast Media. American College 
+of Radiology . Retrieved: January 2024. https://www.acr.org/-/media/ACR/Files/Clinical-Re-
+sources/Contrast_Media.pdf
+[3] American College of Radiology. (2022) . Lung CT Screening Reporting & Data System (Lung-
+RADS®). American College of Radiology . Retrieved: January 2024. https://www.acr.org/Clin-
+ical-Resources/Reporting-and-Data-Systems/Lung-Rads
+[4] Bennett, S.J., Dill, K.E., . . . Rybicki, F.J. (2018) . ACR Appropriateness Criteria Suspected 
+Thoracic Aortic Aneurysm.  Journal of the American College of Radiology , 15(5S), S208-
+S214.
+[5] Carter, B.W., Shroff, G.S. & Wu, C.C. (2020) . Neoplasms of the Lung and Airways. S.R. Digu-
+marthy & S. Abbara (Eds.).  Problem Solving in Chest Imaging , (pp. 265-279) . Philadelphia, 
+PA: Elsevier.
+[6] Contrella, B.N., Minhajuddin, S.K., . . . Steigner, M.L. (2023) . ACR Appropriateness Criteria 
+Thoracoabdominal Aortic Aneurysm or Dissection: Treatment Planning and Follow-Up. Jour-
+nal of the American College of Radiology , 20(5), S265-S284.
+[7] Cox, C.W., Chung, J.H., . . . Kanne, J.P. (2020) . ACR Appropriateness Criteria Occupational 
+Lung Diseases.  Journal of the American College of Radiology , 17(5), S188-S197.
+[8] Dangas, G.D. & Mehran, R. (2022) . Coronary Angiography and Intravascular Imaging. P. Lib-
+by & R.O. Bonow (Eds.) . Braunwald’s Heart Disease: A Textbook of Cardiovascular Medicine 
+(12), (pp. 363-384) . Philadelphia, PA: Elsevier.
+[9] de Groot, P.M., Chung, J.H., . . . Kanne, J.P. (2019) . ACR Appropriateness Criteria Noninva-
+sive Clinical Staging of Primary Lung Cancer.  Journal of the American College of Radiology , 
+16(5S), S184-S195.
+[10] Feng, S.H. & Yang, S. (2019) . The new 8th TNM staging system of lung cancer and its 
+potential imaging interpretation pitfalls and limitations with CT image demonstrations. Diag-
+nostic and Interventional Radiology , 25(4), 270-279.
+[11] Gould, M.K., Altman, D.E., . . . Vachani, A. (2021).  Guidelines for the Evaluation of Pulmo-
+nary Nodules Detected Incidentally or by Screening: A Survey of Radiologist Awareness, 
+Agreement, and Adherence From the Watch the Spot Trial. Journal of the American College 
+of Radiology , 18(4), 545-553.
+38
+
+Page 39
+==================================================
+
+[12] Guzman-Soto, M.I., Kimuro, Y., . . . Hinojosa-Azaola, A. (2021) . From Head to Toe: Granulo-
+matosis with Polyangiitis. RadioGraphics , 41(7), 1973-1991.
+[13] Hansell, D.M., Goldin, J.G., . . . Wells, A.U. (2015) . CT staging and monitoring of fibrotic 
+interstitial lung diseases in clinical practice and treatment trials: a Position Paper from the 
+Fleischner society. The Lancet Respiratory Medicine , 3(6), 483-496.
+[14] Hermelijn, S.M., Elders, B.B.L.J., . . . Schnater, J.M. (2021) . A clinical guideline for struc-
+tured assessment of CT-imaging in congenital lung abnormalities. Paediatric Respiratory 
+Reviews , 37, 80-88.
+[15] Hobbs, S.B., Chung, J.H., . . . Kanne, J.P. (2021) . ACR Appropriateness Criteria Diffuse Lung 
+Disease.  Journal of the American College of Radiology , 18(1), S320-S329.
+[16] Ishfaq, A., Farooq, S.M.Y., . . . Bacha, R. (2021) . Role of High Resolution Computed Tomog-
+raphy chest in the diagnosis and evaluation of COVID -19 patients - A systematic review and 
+meta-analysis. European Journal of Radiology Open , 8, Article 100350.
+[17] Krist, A.H., Davidson, K.W., . . . Wong, J.B. (2021) . Screening for Lung Cancer US Preven-
+tive Services Task Force Recommendation Statement. JAMA , 325(10), 962-971.
+[18] Kroft, L.J.M., van der Velden, L., . . . Geleijns, J. (2019).  Added Value of Ultra–low-dose 
+Computed Tomography, Dose Equivalent to Chest X-Ray Radiography, for Diagnosing Chest 
+Pathology. Journal of Thoracic Imaging , 34(3), 179-186.
+[19] Kuzniewski, C.T., Kizhner, O., . . . Kanne, J.P. (2021) . ACR Appropriateness Criteria Chronic 
+Cough.  Journal of the American College of Radiology , 18(1), S305-S319.
+[20] Lee, C., Colletti, P.M., . . . Kanne, J.P. (2019) . ACR Appropriateness Criteria Acute Respirato-
+ry Illness in Immunocompromised Patients.  Journal of the American College of Radiology , 
+16(11), S331-S339.
+[21] Li, K., Wu, J., . . . Li, C. (2020) . The Clinical and Chest CT Features Associated With Severe 
+and Critical COVID-19 Pneumonia. Investigative Radiology , 55(6), 327-331.
+[22] Liang, T.I. & Lee, E.Y. (2022) . Pediatric Pulmonary Nodules. Radiologic Clinics of North 
+America , 60(1), 55-67.
+[23] Lok, C., van Trommel, N., . . . Seckl, M. (2020) . Practical clinical guidelines of the EOTTD 
+for treatment and referral of gestational trophoblastic disease. European Journal of Cancer , 
+130, 228-240.
+[24] Martin, M.D., Henry, T.S., . . . Donnelly, E.F. (2023) . ACR Appropriateness Criteria Incidental-
+ly Detected Indeterminate Pulmonary Nodule. Journal of the American College of Radiology , 
+20(11), S455-S470.
+[25] McComb, B.L., Ravenell, J.G., . . . Kanne, J.P. (2018) . ACR Appropriateness Criteria Chronic 
+Dyspnea-Noncardiovascular Origin.  Journal of the American College of Radiology , 15(11), 
+S291-S301.
+[26] Minervini, F. & Kocher, G.J. (2020) . When to suspect a thymoma: clinical point of view. 
+Journal of Thoracic Disease , 12(12), 7613-7618.
+39
+
+Page 40
+==================================================
+
+[27] Morice, A., Millqvist, E., . . . Zacharasiewicz, A. (2020) . ERS guidelines on the diagnosis 
+and treatment of chronic cough in adults and children. European Respiratory Journal, 55, 
+1901136.
+[28] Munden, R.F., Black, W.C., . . . Pandharipande, P.V. (2021) . Managing Incidental Findings 
+on Thoracic CT: Lung Findings. A White Paper of the ACR Incidental Findings Committee. 
+Journal of the American College of Radiology , 18(9), 1267-1279.
+[29] Olsen, K.M., Manouchehr-Pour, S., . . . Kanne, J.P. (2020) . ACR Appropriateness Criteria He-
+moptysis.  Journal of the American College of Radiology , 17(5S), S148-S159.
+[30] Park, J.E., Cha, S.I., . . . Park, J.Y. (2021) . Role of Chest Computed Tomography in Patients 
+Hospitalized with Community-Acquired Complicated Parapneumonic Effusion or Empyema. 
+The American Journal of the Medical Sciences , 363(3), 259-266.
+[31] Ravenell, J.G., Chung, J.H., . . . Mohammed, T. (2017) . ACR Appropriateness Criteria Imag-
+ing of Possible Tuberculosis. Journal of the American College of Radiology , 14(5), S160-
+S165.
+[32] Sandler, K.L,. Henry, T.S., . . . Donnelly, E.F. (2023) . ACR Appropriateness Criteria Lung 
+Cancer Screening: 2022 Update. Journal of the American College of Radiology , 20(5), S94-
+S101.
+[33] Shyu, J.Y., Khurana, B., . . . Lockhart, M.E. (2020) . ACR Appropriateness Criteria Major Blunt 
+Trauma  Journal of the American College of Radiology. , 17(5S), S160-S174.
+[34] Sirajuddin, A., Mirmomen, S.M., . . . Donnelly, E.F. (2022) . ACR Appropriateness Criteria 
+Suspected Pulmonary Hypertension: 2022 Update.  Journal of the American College of Radi-
+ology , 19(11), S502-S512.
+[35] Stowell, J.T., Walker, C.M., . . . Kanne, J.P. (2021) . ACR Appropriateness Criteria Nontrau-
+matic Chest Wall Pain.  Journal of the American College of Radiology , 18(11), S394-S405.
+[36] Strange, C.D., Ahuja, J., . . . Marom, E.M. (2022) . Imaging Evaluation of Thymoma and 
+Thymic Carcinoma. Frontiers in Oncology , 11, Article 810419.
+[37] Tiddens, H.A.W.M., Meerburg, J.J., . . . Ciet, P. (2020) . The radiological diagnosis of bron-
+chiectasis: what's in a name? European Respiratory Review , 29, Article 190120.
+[38] U.S. Preventative Services Task Force (USPSTF). (2021) . Lung Cancer: Screening. U.S. Pre-
+ventative Services Task Force . Retrieved: January 2024. https://www.uspreventiveservices-
+taskforce.org/uspstf/recommendation/lung-cancer-screening
+[39] We, J., Wu, X., . . . Li, C. (2020) . Chest CT Findings in Patients With Coronavirus Disease 
+2019 and Its Relationship With Clinical Features.  Investigative Radiology , 55(5), 257-261.
+[40] Webb, W.R. (2020) . Lung Disease. W.R. Webb, W.E. Brant & N.M. Major (Eds.) . Fundamen-
+tals of Body CT (5), (pp. 105-155) . Philadelphia, PA: Elsevier.
+[41] Witte, D.H. (2021) . Advanced Imaging in Orthopaedics. F.M. Azar & J.H. Beaty (Eds.) . 
+Campbell's Operative Orthopaedics (14), (pp. 141-176) . Philadelphia, PA: Elsevier.
+[42] Wolf, A.M.D., Oeffinger, K.C., . . . Smith, R.A. (2023) . Screening for lung cancer:2023 guide-
+line update from the American Cancer Society. CA: A Cancer journal for Clinicians , 1-32.
+40
+
+Page 41
+==================================================
+
+[43] Wood, D.E., Kazerooni, E.A., . . . Yang, S.C. (2023) . Lung Cancer Screening Version 2.2024. 
+National Comprehensive Cancer Network . Retrieved: January 2024. https://www.nccn.org/
+professionals/physician_gls/pdf/lung_screening.pdf
+[44] Zettinig, D., D'Antonoli, T.A., . . . Sexaurer, R. (2022) . Diagnostic Accuracy of Imaging Find-
+ings in Pleural Empyema: Systematic Review and Meta-Analysis. Journal of Imaging , 8(1), 
+3.
+Disclaimer & Legal Notice
+Purpose
+The purpose of the HealthHelp's clinical guidelines is to assist healthcare professionals in select-
+ing the medical service that may be appropriate and supported by evidence to safely improve 
+outcomes. Medical information is constantly evolving, and HealthHelp reserves the right to re-
+view and update these clinical guidelines periodically. HealthHelp reserves the right to include in 
+these guidelines the clinical indications as appropriate for the organization's program objectives. 
+Therefore the guidelines are not a list of all the clinical indications for a stated procedure, and 
+associated Procedure Code Tables may not represent all codes available for that state procedure 
+or that are managed by a specific client-organization.
+Clinician Review
+These clinical guidelines neither preempt clinical judgment of trained professionals nor advise 
+anyone on how to practice medicine. Healthcare professionals using these clinical guidelines are 
+responsible for all clinical decisions based on their assessment. All Clinical Reviewers are instruc-
+ted to apply clinical indications based on individual patient assessment and documentation, within 
+the scope of their clinical license.
+Payment
+The use of these clinical guidelines does not provide authorization, certification, explanation of 
+benefits, or guarantee of payment; nor do the guidelines substitute for, or constitute, medical 
+advice. Federal and State law, as well as member benefit contract language (including definitions 
+and specific contract provisions/exclusions) take precedence over clinical guidelines and must be 
+considered first when determining eligibility for coverage. All final determinations on coverage and 
+payment are the responsibility of the health plan. Nothing contained within this document can be 
+interpreted to mean otherwise.
+41
+
+Page 42
+==================================================
+
+Registered Trademarks (®/™) and Copyright (©)
+All trademarks, product names, logos, and brand names are the property of their respective 
+owners and are used for purposes of information and/or illustration only. Current Procedural Ter-
+minology (CPT)® ™ is a registered trademark of the American Medical Association (AMA). No part 
+of this publication may be reproduced, stored in a retrieval system or transmitted, in any form 
+or by any means, electronic, mechanical, photocopying, or otherwise, without permission from 
+HealthHelp.
+42

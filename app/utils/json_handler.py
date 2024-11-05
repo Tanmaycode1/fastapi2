@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import List, Dict, Any, Tuple, Union
+from typing import List, Dict, Any, Tuple
 import re
 
 logger = logging.getLogger(__name__)
@@ -13,14 +13,10 @@ class JSONProcessingError(Exception):
 
 class JSONHandler:
     @staticmethod
-    async def process_chunk(content: Union[str, Dict[str, Any]]) -> Dict[str, Any]:
+    async def process_chunk(content: str) -> Dict[str, Any]:
         """Process and validate a JSON chunk."""
         try:
-            # If content is already a dictionary, return it
-            if isinstance(content, dict):
-                return content
-
-            # Process string content
+            # Clean the content
             cleaned = content.strip()
             # Remove markdown code blocks and json language identifier
             cleaned = re.sub(r'```json\s*', '', cleaned)
@@ -60,7 +56,7 @@ class JSONHandler:
         except json.JSONDecodeError as e:
             logger.error(f"JSON decode error: {str(e)}")
             # Try to return as plain text if JSON parsing fails
-            return {"content": cleaned if isinstance(content, str) else str(content)}
+            return {"content": cleaned}
         except Exception as e:
             logger.error(f"Error processing JSON chunk: {str(e)}")
             raise JSONProcessingError(str(e))
@@ -112,11 +108,8 @@ class JSONHandler:
             }
 
     @staticmethod
-    def find_continuation_point(content: str) -> Tuple[bool, str]:
+    def find_continuation_point(content: str) -> Tuple[str, str]:
         """Find where to continue from in partial JSON."""
-        if not isinstance(content, str):
-            return True, ""
-            
         # Find the last complete JSON structure
         stack = []
         last_complete_pos = -1
@@ -147,7 +140,7 @@ class JSONHandler:
             # Try to find a logical breaking point
             sentences = content.split('. ')
             if len(sentences) > 1:
-                return False, sentences[-1]
-            return False, content
+                return '. '.join(sentences[:-1]) + '.', sentences[-1]
+            return content, ""
 
-        return True, content[last_complete_pos:]
+        return content[:last_complete_pos], content[last_complete_pos:]
