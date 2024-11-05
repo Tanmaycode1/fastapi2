@@ -24,6 +24,7 @@ import psutil
 import threading
 from concurrent.futures import ThreadPoolExecutor
 import gc
+from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -47,7 +48,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 try:
-    openai_client = OpenAIClient("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")
+    load_dotenv()
+    openai_client = OpenAIClient(os.getenv("OPENAI_API_KEY"))
 except Exception as e:
     logger.error(f"Failed to initialize OpenAI client: {str(e)}")
     raise
